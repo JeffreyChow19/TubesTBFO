@@ -10,7 +10,7 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Automata
 
 # Author
 ### 三位棉兰男神
-- 13521046 Jeffrey Chow
-- 13521054 Wilson Tansil
-- 13521102 Jimly Firdaus
+- 13521046 周伟林 Jeffrey Chow
+- 13521054 陈维康 Wilson Tansil
+- 13521102 李健康 Jimly Firdaus
 
