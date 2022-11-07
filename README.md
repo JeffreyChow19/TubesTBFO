@@ -14,3 +14,5 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Automata
 - 13521054 陈维康 Wilson Tansil
 - 13521102 李健康 Jimly Firdaus
 
+## TODO
+### Create To Do List
