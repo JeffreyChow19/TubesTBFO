@@ -16,3 +16,7 @@ Tugas Besar IF2124 Teori Bahasa Formal dan Automata
 
 ## TODO
 ### Create To Do List
+1. Grammar in txt
+2. TXT to CFG
+3. CFG to CNF
+4. CYK
