@@ -4,6 +4,8 @@ class CFG:
         self.keys = list(CFG.keys())
         self.values = list(CFG.values())
 
+    
+
     def createProduction(self, key, value):
         if key not in self.keys:
             self.CFG.update({key: [[value]]})
