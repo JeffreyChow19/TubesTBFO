@@ -3,12 +3,31 @@ class CFG:
         self.CFG = CFG
         self.keys = list(CFG.keys())
         self.values = list(CFG.values())
+        self.index = 0
+
+    def updateKeyVal(self):
+        self.keys = list(self.CFG.keys())
+        self.values = list(self.CFG.values())
 
     def createProduction(self, key, value):
         if key not in self.keys:
-            self.CFG.update({key: [[value]]})
+            self.CFG.update({key: [value]})
+            self.updateKeyVal()
         else:
-            self.CFG[key].append([value])
+            self.CFG[key].append(value)
+
+    def printCFG(self):
+        for x in self.CFG:
+            print(f'{x} -> {self.CFG[x]}')
+        print()
+
+    def newVar(self):
+        newvar = 'VAR' + str(self.index)
+        self.index += 1
+        return newvar
+
+    def checkValueIndex(self):
+        pass
 
     def CFGtoCNF(self):
 
@@ -23,6 +42,76 @@ class CFG:
                     break
 
         if startInRHS:
-            self.createProduction('S0', startSymbol)
+            self.createProduction('S0', [startSymbol])
 
-        print(self.CFG)
+        self.printCFG()
+        # Eliminate unit production
+        recheck = True
+        while recheck:
+            changed = False
+            for rule in self.CFG:
+                for unit in self.CFG[rule]:
+                    if (len(unit) == 1):
+                        if not unit[0].islower():
+                            self.CFG[rule].remove(unit)
+                            for item in self.CFG[unit[0]]:
+                                self.CFG[rule].append(item)
+                            changed = True
+                            self.updateKeyVal()
+            recheck = changed
+
+        self.printCFG()
+
+        # remove useless production
+        for rule in list(self.CFG):
+            useless = True
+            for value in self.values:
+                for item in value:
+                    if rule in item or rule == 'S0':
+                        useless = False
+                        break
+            if useless:
+                del self.CFG[rule]
+                self.updateKeyVal()
+
+        self.printCFG()
+
+        # Eliminate terminals from RHS if they exist with other terminals or non-terminals
+        # for key in self.keys:
+        #     for value in self.CFG[key]:
+        #         if len(value) > 1:
+        #             for item in value:
+        #                 if item.islower():
+        #                     newVar = self.newVar()
+        #                     self.createProduction(newVar, item)
+        #                     (self.CFG[key])[(self.CFG[key]).index(
+        #                         value)] = list(map(lambda x: x.replace(item, newVar), (self.CFG[key])[(self.CFG[key]).index(
+        #                             value)]))
+        #                     self.updateKeyVal()
+
+        # Eliminate RHS with more than two non-terminals.
+        recheck = True
+        while recheck:
+            changed = False
+
+            for key in self.keys:
+                for value in self.CFG[key]:
+                    if len(value) > 2:
+
+                        newVar = self.newVar()
+                        newVal = [value[0], value[1]]
+
+                        self.createProduction(newVar, newVal)
+                        del self.CFG[key][(self.CFG[key]).index(value)][0:2]
+
+                        self.CFG[key][(self.CFG[key]).index(
+                            value)].insert(0, newVar)
+
+                        self.updateKeyVal()
+                        changed = True
+
+                        self.printCFG()
+
+            recheck = changed
+
+        self.printCFG()

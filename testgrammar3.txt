@@ -1,6 +1,7 @@
 S -> A S
 S -> A S B
 S -> S B
+S -> B A S
 A -> a A S
 A -> a S
 A -> a
