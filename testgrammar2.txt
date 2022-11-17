@@ -1,0 +1,7 @@
+S -> X Y
+X -> A
+Y -> Z
+Y -> b
+Z -> M
+M -> N
+N -> A
