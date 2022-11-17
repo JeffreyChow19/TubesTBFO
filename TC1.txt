@@ -1,0 +1,14 @@
+// ignore This                  
+// ignore This
+// ignore This 1231231 __&&&&%66^^// //
+if
+
+// this too
+//
+/* ignore this
+ multiline
+ comments
+ on
+ javascript */
+if
+ if
