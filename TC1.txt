@@ -10,5 +10,8 @@ if
  comments
  on
  javascript */
-if
- if
+if (x == 3) {
+        y = 2;
+    // ignore
+    y = 2 + 3;
+}

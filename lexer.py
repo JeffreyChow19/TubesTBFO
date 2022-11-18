@@ -13,15 +13,47 @@ tokenCollection = [
 
     # DATA TYPES
     (r'\"[^\w]\"',  "string"),
-    # (r''),
-
+    (r'[\+\-]?[0-9]+',  "number"),
+    (r'[\+\-]?[0-9]+\.[0-9]*',  "number"),
+    (r'[\+\-]?[0-9]+[e-]?[0-9]*',  "number"),
+    (r'\bconst\b',  "type"),
+    (r'\bvar\b',  "type"),
+    (r'\blet\b',  "type"),
+    (r'\bconst\b',  "const"),
+    
 
     # SYNTAX
     (r'\bfunction\b',    "function"),
+    (r'\breturn\b',      "return"),
     (r'\bif\b',          "if"),
     (r'\belse\b',        "else"),
     (r'\belse if\b',     "else if"),
-
+    (r'\bfor\b',         "for"),
+    (r'\bwhile\b',       "while"),
+    (r'\bcontinue\b',    "continue"),
+    (r'\bbreak\b',       "break"),
+    (r'\btrue\b',        "true"),
+    (r'\bfalse\b',       "false"),
+    (r'\bnull\b',        "null"),
+    (r'\bswitch\b',      "switch"),
+    (r'\bcase\b',        "case"),
+    (r'\bdefault\b',     "default"),
+    (r'\btry\b',         "try"),
+    (r'\bcatch\b',       "catch"),
+    (r'\bthrow\b',       "throw"),
+    (r'\bfinally\b',     "finally"),
+    (r'\bthrow\b',       "throw"),
+    (r'\bimport\b',      "import"),
+    (r'\bexport\b',      "export"),
+    (r'\bexport default\b',     "export default"),
+    (r'\bdelete\b',       "delete"),
+    (r'\btypeof\b',       "typeof"),
+    (r'\bdelete\b',       "delete"),
+    (r'\bin\b',           "in"),
+    (r'\binstanceof\b',   "instanceof"),
+    (r'\bInfinity\b',       "Infinity"),
+    (r'\bin\b',           "in"),
+    (r'\binstanceof\b',   "instanceof"),
 
     # ESCAPE SEQUENCE
     (r'\n',              "newline"),
@@ -31,18 +63,45 @@ tokenCollection = [
     (r'\}',              "kkka"), # kurung kurawal kanan
     (r'\[',              "kski"), # kurung siku kiri
     (r'\]',              "kska"), # kurung siku kanan
-    (r'\:',              "colon"), # titik dua
-    (r'\;',              "scolon"), # titik koma
+    (r'\:',              "td"), # titik dua
+    (r'\;',              "tk"), # titik koma
+    (r'\,',              "km"), # koma
 
-    # Operator
+
+    # Operator (boolean)
     (r'\===',            "isstricteq"),
+    (r'!==',             "notstricteq"), 
     (r'\==',             "iseq"),
-    (r'\!=',             "isneq"),
-    (r'\<=',            "leq"),
-    (r'\<',             "l"),
-    (r'\>=',             "geq"),
-    (r'\>',             "g"),
-    (r'\>=',             "geq"),
+    (r'\!=',             "isneq"), 
+    (r'\<=',             "leq"),
+    (r'\<',              "l"), # less
+    (r'\>=',             "geq"), 
+    (r'\>',              "g"), # greater
+    (r'\&&',             "and"), # and boolean
+    (r'\||',             "or"), # or boolean
+    (r'\!',              "notb"), # not boolean
+    (r'\?',              "andb"), # ternary (dipasangkan dengan :) e.g. x = expr1 ? val1 : val2
+
+    # Operator (arithmetic)
+    (r'\=',              "is"), # assigment
+    (r'\+',              "sum"), # sum , concat str
+    (r'\-',              "sub"),
+    (r'\*',              "mul"),
+    (r'\/',              "div"),
+    (r'\%',              "mod"),
+    (r'\**',             "pow"),
+    (r'\+=',             "peq"), # plus equal
+    (r'\-=',             "meq"), # minus equal
+    (r'\++',             "inc"), # increment
+    (r'\--',             "dec"), # decrement
+    (r'\^',              "xor"),
+    (r'\&',              "andb"), # and bitwise
+    (r'\|',              "orb"), # or bitwise
+
+
+    # Var Name, Class method, Obj Props
+    (r'[a-zA-Z_][a-zA-Z0-9_]*',             "id"),
+    (r'\w+[.]\w+',        "kartitik"), 
 ]
 
 def lexer(text, tokenCollection):
