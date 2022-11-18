@@ -1,17 +1,12 @@
-// ignore This                  
-// ignore This
-// ignore This 1231231 __&&&&%66^^// //
-if
+/* function name jimly */
+function jimly(firdaus){
+    var a = "jimly"
+    let b = "firdaus"
+    let name = a + b
+    console.log(name)
 
-// this too
-//
-/* ignore this
- multiline
- comments
- on
- javascript */
-if (x == 3) {
-        y = 2;
-    // ignore
-    y = 2 + 3;
+    // return value to name
+    return name
 }
+
+jimly(jelek);
