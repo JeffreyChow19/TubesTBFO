@@ -5,7 +5,7 @@ tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
 
     # IGNORE TYPES
-    (r'[ \t]+',                                 None), # ignore spaces at left
+    (r'[ \t]+',                                 None),  # ignore spaces at left
     (r'//[^\n]*',                               None),
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
@@ -69,29 +69,30 @@ tokenCollection = [
 
     # Operator (boolean)
     (r'\===',            "isstricteq"),
-    (r'\!==',            "notstricteq"), 
+    (r'\!==',            "notstricteq"),
     (r'\==',             "iseq"),
     (r'\!=',             "isneq"),
     (r'\<=',             "leq"),
-    (r'<',               "l"), # less
-    (r'>=',              "geq"), 
-    (r'>',               "g"), # greater
-    (r'&&',              "and"), # and boolean
-    (r'\|\|',            "or"), # or boolean
-    (r'\!',              "notb"), # not boolean
-    (r'\?',              "qb"), # ternary (dipasangkan dengan :) e.g. x = expr1 ? val1 : val2
+    (r'<',               "l"),  # less
+    (r'>=',              "geq"),
+    (r'>',               "g"),  # greater
+    (r'&&',              "and"),  # and boolean
+    (r'\|\|',            "or"),  # or boolean
+    (r'\!',              "notb"),  # not boolean
+    # ternary (dipasangkan dengan :) e.g. x = expr1 ? val1 : val2
+    (r'\?',              "qb"),
 
     # Operator (arithmetic)
     (r'\*\*',             "pow"),
-    (r'\+\=',             "peq"), # plus equal
-    (r'\-\=',             "meq"), # minus equal
-    (r'\+\+',             "inc"), # increment
-    (r'\-\-',             "dec"), # decrement
+    (r'\+\=',             "peq"),  # plus equal
+    (r'\-\=',             "meq"),  # minus equal
+    (r'\+\+',             "inc"),  # increment
+    (r'\-\-',             "dec"),  # decrement
     (r'\^',               "xor"),
-    (r'&',                "andb"), # and bitwise
-    (r'\|',               "orb"), # or bitwise
-    (r'\=',               "is"), # assigment
-    (r'\+',               "sum"), # sum , concat str
+    (r'&',                "andb"),  # and bitwise
+    (r'\|',               "orb"),  # or bitwise
+    (r'\=',               "is"),  # assigment
+    (r'\+',               "sum"),  # sum , concat str
     (r'\-',               "sub"),
     (r'\*',               "mul"),
     (r'/',                "div"),
@@ -152,8 +153,8 @@ def parseTextToken(path):
     tokenInText = []
     for token in usedTokens:
         tokenInText.append(token)
-    
+
     return tokenInText
 
 
-parseTextToken('TC1.txt')
+parseTextToken('test/TC1.txt')
