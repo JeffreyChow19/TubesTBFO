@@ -5,22 +5,21 @@ tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
     
     # IGNORE TYPES
-    (r'[ \t]+',                        None), # ignore spaces at left
-    (r'//[^\n]*',          None),
-    # (r'/\*[^\n]*[ \t]*[//]*[\w\W]*\*/',     None), 
-    (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',     None),
-    # (r'[ \t]*[\n]+',                  "newline"), # ignore space+repeated \n or space
+    (r'[ \t]+',                                 None), # ignore spaces at left
+    (r'//[^\n]*',                               None),
+    (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[^\w]\"',  "string"),
-    (r'[\+\-]?[0-9]+',  "number"),
-    (r'[\+\-]?[0-9]+\.[0-9]*',  "number"),
-    (r'[\+\-]?[0-9]+[e-]?[0-9]*',  "number"),
-    (r'\bconst\b',  "type"),
-    (r'\bvar\b',  "type"),
-    (r'\blet\b',  "type"),
-    (r'\bconst\b',  "const"),
-    
+    (r'"[\w]*"',                    "string"),
+    (r'\'[\w]*\'',                  "string"),
+    (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
+    (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
+    (r'[\+\-]?[0-9]+',              "number"),
+    (r'\bconst\b',                  "type"),
+    (r'\bvar\b',                    "type"),
+    (r'\blet\b',                    "type"),
+    (r'\bconst\b',                  "const"),
+
 
     # SYNTAX
     (r'\bfunction\b',    "function"),
@@ -45,13 +44,13 @@ tokenCollection = [
     (r'\bthrow\b',       "throw"),
     (r'\bimport\b',      "import"),
     (r'\bexport\b',      "export"),
-    (r'\bexport default\b',     "export default"),
+    # (r'\bexport default\b',     "export default"),
     (r'\bdelete\b',       "delete"),
     (r'\btypeof\b',       "typeof"),
     (r'\bdelete\b',       "delete"),
     (r'\bin\b',           "in"),
     (r'\binstanceof\b',   "instanceof"),
-    (r'\bInfinity\b',       "Infinity"),
+    (r'\bInfinity\b',      "Infinity"),
     (r'\bin\b',           "in"),
     (r'\binstanceof\b',   "instanceof"),
 
@@ -70,38 +69,39 @@ tokenCollection = [
 
     # Operator (boolean)
     (r'\===',            "isstricteq"),
-    (r'!==',             "notstricteq"), 
+    (r'\!==',            "notstricteq"), 
     (r'\==',             "iseq"),
     (r'\!=',             "isneq"), 
     (r'\<=',             "leq"),
-    (r'\<',              "l"), # less
-    (r'\>=',             "geq"), 
-    (r'\>',              "g"), # greater
-    (r'\&&',             "and"), # and boolean
-    (r'\||',             "or"), # or boolean
+    (r'<',               "l"), # less
+    (r'>=',              "geq"), 
+    (r'>',               "g"), # greater
+    (r'&&',              "and"), # and boolean
+    (r'\|\|',            "or"), # or boolean
     (r'\!',              "notb"), # not boolean
-    (r'\?',              "andb"), # ternary (dipasangkan dengan :) e.g. x = expr1 ? val1 : val2
+    (r'\?',              "qb"), # ternary (dipasangkan dengan :) e.g. x = expr1 ? val1 : val2
 
     # Operator (arithmetic)
-    (r'\=',              "is"), # assigment
-    (r'\+',              "sum"), # sum , concat str
-    (r'\-',              "sub"),
-    (r'\*',              "mul"),
-    (r'\/',              "div"),
-    (r'\%',              "mod"),
-    (r'\**',             "pow"),
-    (r'\+=',             "peq"), # plus equal
-    (r'\-=',             "meq"), # minus equal
-    (r'\++',             "inc"), # increment
-    (r'\--',             "dec"), # decrement
-    (r'\^',              "xor"),
-    (r'\&',              "andb"), # and bitwise
-    (r'\|',              "orb"), # or bitwise
+    (r'\*\*',             "pow"),
+    (r'\+\=',             "peq"), # plus equal
+    (r'\-\=',             "meq"), # minus equal
+    (r'\+\+',             "inc"), # increment
+    (r'\-\-',             "dec"), # decrement
+    (r'\^',               "xor"),
+    (r'&',                "andb"), # and bitwise
+    (r'\|',               "orb"), # or bitwise
+    (r'\=',               "is"), # assigment
+    (r'\+',               "sum"), # sum , concat str
+    (r'\-',               "sub"),
+    (r'\*',               "mul"),
+    (r'/',                "div"),
+    (r'%',                "mod"),
 
 
     # Var Name, Class method, Obj Props
-    (r'[a-zA-Z_][a-zA-Z0-9_]*',             "id"),
-    (r'\w+[.]\w+',        "kartitik"), 
+    (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
+    (r'\.',                                                      "titik"),
+    (r'[a-zA-Z_][a-zA-Z0-9_]*',                                  "id"),
 ]
 
 def lexer(text, tokenCollection):
@@ -147,7 +147,7 @@ def parseTextToken(path):
     tokenInText = []
     for token in usedTokens:
         tokenInText.append(token)
-
+    
     return tokenInText
 
 parseTextToken('TC1.txt')
