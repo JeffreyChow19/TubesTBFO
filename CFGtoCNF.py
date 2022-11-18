@@ -26,9 +26,6 @@ class CFG:
         self.index += 1
         return newvar
 
-    def checkValueIndex(self):
-        pass
-
     def CFGtoCNF(self):
 
         startSymbol = self.keys[0]

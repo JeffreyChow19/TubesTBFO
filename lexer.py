@@ -3,7 +3,7 @@ import sys
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
-    
+
     # IGNORE TYPES
     (r'[ \t]+',                                 None), # ignore spaces at left
     (r'//[^\n]*',                               None),
@@ -56,22 +56,22 @@ tokenCollection = [
 
     # ESCAPE SEQUENCE
     (r'\n',              "newline"),
-    (r'\(',              "kbki"), # kurung biasa kiri
-    (r'\)',              "kbka"), # kurung biasa kanan
-    (r'\{',              "kkki"), # kurung kurawal kiri
-    (r'\}',              "kkka"), # kurung kurawal kanan
-    (r'\[',              "kski"), # kurung siku kiri
-    (r'\]',              "kska"), # kurung siku kanan
-    (r'\:',              "td"), # titik dua
-    (r'\;',              "tk"), # titik koma
-    (r'\,',              "km"), # koma
+    (r'\(',              "kbki"),  # kurung biasa kiri
+    (r'\)',              "kbka"),  # kurung biasa kanan
+    (r'\{',              "kkki"),  # kurung kurawal kiri
+    (r'\}',              "kkka"),  # kurung kurawal kanan
+    (r'\[',              "kski"),  # kurung siku kiri
+    (r'\]',              "kska"),  # kurung siku kanan
+    (r'\:',              "td"),  # titik dua
+    (r'\;',              "tk"),  # titik koma
+    (r'\,',              "km"),  # koma
 
 
     # Operator (boolean)
     (r'\===',            "isstricteq"),
     (r'\!==',            "notstricteq"), 
     (r'\==',             "iseq"),
-    (r'\!=',             "isneq"), 
+    (r'\!=',             "isneq"),
     (r'\<=',             "leq"),
     (r'<',               "l"), # less
     (r'>=',              "geq"), 
@@ -104,11 +104,12 @@ tokenCollection = [
     (r'[a-zA-Z_][a-zA-Z0-9_]*',                                  "id"),
 ]
 
+
 def lexer(text, tokenCollection):
-    currentPos = 1 # position in current line
-    currentLine = 1 # current line
+    currentPos = 1  # position in current line
+    currentLine = 1  # current line
     usedTokens = []
-    pointerText = 0 # text pointer
+    pointerText = 0  # text pointer
     while(pointerText < len(text)):
         if text[pointerText] == '\n':
             currentLine += 1
@@ -117,26 +118,30 @@ def lexer(text, tokenCollection):
         match = None
 
         for tokenExpr in tokenCollection:
-            pattern , tokenTag = tokenExpr
+            pattern, tokenTag = tokenExpr
 
-            regex = re.compile(pattern) # init regex
-            match = regex.match(text, pointerText) # check till current pointer
+            regex = re.compile(pattern)  # init regex
+            # check till current pointer
+            match = regex.match(text, pointerText)
 
-            if match: # check matcher
-                if tokenTag: # get token
+            if match:  # check matcher
+                if tokenTag:  # get token
                     currentTokens = tokenTag
                     usedTokens.append(currentTokens)
                 break
 
-        if not match: # throws error if not match
-            print(f"\nSyntax Error!\nLine: {currentLine},{currentPos} (character: {text[pointerText]})")
+        if not match:  # throws error if not match
+            print(
+                f"\nSyntax Error!\nLine: {currentLine},{currentPos} (character: {text[pointerText]})")
             sys.exit(1)
-        else: # set current text pointer to end of current match position
-            pointerText = match.end(0) # set pointer to end of current match position
+        else:  # set current text pointer to end of current match position
+            # set pointer to end of current match position
+            pointerText = match.end(0)
 
         currentPos += 1
     print(usedTokens)
     return usedTokens
+
 
 def parseTextToken(path):
     file = open(path)
@@ -150,5 +155,5 @@ def parseTextToken(path):
     
     return tokenInText
 
-parseTextToken('TC1.txt')
 
+parseTextToken('TC1.txt')
