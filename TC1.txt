@@ -10,4 +10,8 @@ function jimly(firdaus){
     return name
 }
 
+
 jimly(jelek);
+export default {
+    
+}
