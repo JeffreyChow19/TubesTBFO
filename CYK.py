@@ -2,8 +2,7 @@
 
 # CYK Algorithm
 def cykParse(javascript, CNF):
-    string = javascript.split("")
-    length = len(string)
+    length = len(javascript)
 
     # Initialize the table
     T = [[set([]) for j in range(length)] for i in range(length)]
@@ -16,7 +15,7 @@ def cykParse(javascript, CNF):
             for rhs in rule:
 
                 # If a terminal is found
-                if len(rhs) == 1 and rhs[0] == string[j]:
+                if len(rhs) == 1 and rhs[0] == javascript[j]:
                     T[j][j].add(lhs)
 
         for i in range(j, -1, -1):

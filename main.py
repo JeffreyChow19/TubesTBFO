@@ -1,19 +1,12 @@
-import TXTtoCFG
-import CFGtoCNF
 import CFG
 import CYK
 
-
-# cfg = TXTtoCFG.parseCFG('testgrammar3.txt')
-
-# cfg = CFGtoCNF.CFG(cfg)
-# cfg.CFGtoCNF()
-
-# CFG = CFG.CFG()
-grammar = CFG.Grammar().parseCFG('testgrammar3.txt')
+grammar = CFG.Grammar().parseCFG('test/testgrammar3.txt')
 
 for x in grammar:
     print(x)
 
-lexer = ['a', 'b']
-CYK.cykParse(lexer, grammar)
+lexer = ['a', 'a', 'a', 'a']
+ans = CYK.cykParse(lexer, grammar)
+
+print(ans)
