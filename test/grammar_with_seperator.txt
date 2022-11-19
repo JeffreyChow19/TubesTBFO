@@ -1,14 +1,68 @@
---------Global----------
-S -> ENTER S
-S -> S ENTER
-S -> BODY S
-S -> S BODY
---------Boolean--------
+-------Start----------
+S -> HEAD BODY
+--------Head--------
+HEAD -> EXPORT_STMT
+HEAD -> IMPORT_STMT
+HEAD -> EXPORT_DEFAULT_STMT
+HEAD -> HEAD HEAD
+--------Export-------------
+EXPORT_STMT -> EXPORT ASSIGNMENT TK
+EXPORT_STMT -> EXPORT FUNCTION FUNCTION_CALL TK
+EXPORT_STMT -> EXPORT LIST_STMT TK
+EXPORT_STMT -> EXPORT MUL TK
+EXPORT_STMT -> EXPORT ASSIGNMENT AS ID TK
+EXPORT_STMT -> EXPORT FUNCTION FUNCTION_CALL AS ID TK
+EXPORT_STMT -> EXPORT LIST_STMT AS ID TK
+EXPORT_STMT -> EXPORT MUL AS ID TK
+EXPORT_STMT -> EXPORT ASSIGNMENT FROM ID TK
+EXPORT_STMT -> EXPORT FUNCTION FUNCTION_CALL FROM ID TK
+EXPORT_STMT -> EXPORT LIST_STMT FROM ID TK
+EXPORT_STMT -> EXPORT MUL AS ID FROM ID TK
+EXPORT_STMT -> EXPORT ASSIGNMENT AS ID FROM ID TK
+EXPORT_STMT -> EXPORT FUNCTION FUNCTION_CALL AS ID FROM ID TK
+EXPORT_STMT -> EXPORT LIST_STMT AS ID FROM ID TK
+EXPORT_STMT -> EXPORT MUL AS ID FROM ID TK
+-----------Export Default----------------
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT ID TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT ASSIGNMENT TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT FUNCTION FUNCTION_CALL TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT LIST_STMT TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT MUL TK
+----------Convert EXPORT----------------
+EXPORT -> export
+----------Convert FROM----------------
+FROM -> from
+----------Import-------------------
+IMPORT_STMT -> IMPORT ID TK
+IMPORT_STMT -> IMPORT ASSIGNMENT TK
+IMPORT_STMT -> IMPORT FUNCTION FUNCTION_CALL TK
+IMPORT_STMT -> IMPORT LIST_STMT TK
+IMPORT_STMT -> IMPORT MUL TK
+IMPORT_STMT -> IMPORT ID AS ID TK
+IMPORT_STMT -> IMPORT ASSIGNMENT AS ID TK
+IMPORT_STMT -> IMPORT FUNCTION FUNCTION_CALL AS ID TK
+IMPORT_STMT -> IMPORT LIST_STMT AS ID TK
+IMPORT_STMT -> IMPORT MUL AS ID TK
+IMPORT_STMT -> IMPORT ID FROM ID TK
+IMPORT_STMT -> IMPORT ASSIGNMENT FROM ID TK
+IMPORT_STMT -> IMPORT FUNCTION FUNCTION_CALL FROM ID TK
+IMPORT_STMT -> IMPORT LIST_STMT FROM ID TK
+IMPORT_STMT -> IMPORT ID AS ID FROM ID TK
+IMPORT_STMT -> IMPORT ASSIGNMENT AS ID FROM ID TK
+IMPORT_STMT -> IMPORT FUNCTION FUNCTION_CALL AS ID FROM ID TK
+IMPORT_STMT -> IMPORT LIST_STMT AS ID FROM ID TK
+IMPORT_STMT -> IMPORT MUL AS ID FROM ID TK
+----------Convert IMPORT----------------
+IMPORT -> import
+----------Boolean--------------
 BOOL -> TRUE
 BOOL -> FALSE
+----------Convert TRUE----------------
 TRUE -> true
+----------Convert FALSE----------------
 FALSE -> false
-----------Body----------
+--------Body----------------
+BODY -> TYPEOF_STMT
 BODY -> TYPE
 BODY -> FUNCTION_STMT
 BODY -> IF_STMT
@@ -19,45 +73,178 @@ BODY -> TRY_STMT
 BODY -> FUNCTION_CALL
 BODY -> FOR_STMT
 BODY -> THROW_STMT
----------Type------------ 
+BODY -> BODY
+BODY -> DELETE_STMT
+BODY -> INSTANCEOF_STMT
+----------Delete--------------
+DELETE_STMT -> DELETE STR TK STR
+----------Convert DELETE----------------
+DELETE -> delete
+----------Instanceof---------------
+INSTANCEOF_STMT -> ID INSTANCEOF ID
+----------Convert INSTANCEOF----------------
+INSTANCEOF -> instanceof
+------------Typeof--------------
+TYPEOF_STMT -> TYPEOF VALUE
+----------Convert TYPEOF----------------
+TYPEOF -> typeof
+---------Type------------
 TYPE -> CONST
 TYPE -> LET
 TYPE -> VAR
-TYPE -> VAR_NAME
-TYPE -> VAR_NAME EQ EXPR
-TYPE -> VAR_NAME EQ BOOL
-TYPE -> VAR_NAME EQ STR 
-TYPE -> ARRAY_STMT EQ FUNCTION_CALL
-TYPE -> VAR_NAME EQ FUNCTION_CALL
+-----------Assignment-------------
+ASSIGNMENT -> TYPE ASSIGN
+ASSIGN -> ID
+ASSIGN -> ID IS VALUE
+ASSIGN -> ARRAY_STMT IS FUNCTION_CALL
+ASSIGN -> ARRAY_STMT IS VALUE
+ASSIGN -> LIST_STMT IS VALUE
+-----------Value-----------------
+VALUE -> EXPR
+VALUE -> BOOL
+VALUE -> STR
+VALUE -> NUM
+VALUE -> NULL
+VALUE -> NONE
+VALUE -> INFINITY
+VALUE -> FUNCTION_CALL
+VALUE -> ARRAY_STMT
+VALUE -> LIST_STMT
+VALUE -> OBJ_STMT
+----------Convert TYPE----------------
 TYPE -> type
+----------Convert LET----------------
 LET -> let
+----------Convert VAR----------------
 VAR -> var
+----------Convert CONST----------------
 CONST -> const
-----------If------------
+------Universal Operator---------------
+UNIOP -> LOGOP
+UNIOP -> OP
+----------Expression-------------
+EXPR -> EXPR UNIOP EXPR
+EXPR -> VALUE
+EXPR -> ID
+EXPR -> LOGOPN VALUE
+----------Convert NUM----------------
+NUM -> number
+----------Convert STR----------------
+STR -> string
+----------Convert BOOL----------------
+BOOL -> bool
+----------Convert NULL----------------
+NULL -> null
+----------Convert NONE----------------
+NONE -> none
+----------Convert INFINITY----------------
+INFINTIY -> infinity
+-----------If-----------------------
 IF_STMT -> IF KBKI EXPR KBKA KKKI BODY KKKA
 IF_STMT -> IF KBKI EXPR KBKA KKKI BODY KKKA ELSE_STMT
+IF_STMT -> IF KBKI EXPR KBKA KKKI BODY KKKA ELSEIF_STMT
+IF_STMT -> IF KBKI EXPR KBKA KKKI BODY KKKA ELSEIF_STMT ELSE_STMT
 IF_STMT -> IF KBKI EXPR KBKA KKKI KKKA
 IF_STMT -> IF KBKI EXPR KBKA KKKI KKKA ELSE_STMT
+IF_STMT -> IF KBKI EXPR KBKA KKKI KKKA ELSEIF_STMT
+IF_STMT -> IF KBKI EXPR KBKA KKKI KKKA ELSEIF_STMT ELSE_STMT
+-----------Else-----------------
 ELSE_STMT -> ELSE KKKI BODY KKKA
 ELSE_STMT -> ELSE KKKI KKKA
+-----------Else if----------------
+ELSEIF_STMT -> ELSE IF KBKI EXPR KBKA KKKI KKKA
+ELSEIF_STMT -> ELSE IF KBKI EXPR KBKA KKKI BODY KKKA
+----------Convert IF----------------
 IF -> if
+----------Convert ELSE----------------
 ELSE -> else
---------Expression--------
-EXPR -> BOOL
-EXPR -> VAR_NAME LOGOP ID_EXPR
-EXPR -> VAR_NAME LOGOP VAR_NAME
---------Logical operator------------
-LOGOP -> ISSTRICTEQ
-LOGOP -> ISEQ
+----------Logical Operator--------------
+LOGOP -> THREEEQ
+LOGOP -> TWOEQ
 LOGOP -> NEQTWO
 LOGOP -> NEQTHREE
 LOGOP -> GT
 LOGOP -> LT
 LOGOP -> LTE
 LOGOP -> GTE
---------Delete--------
-DEL_STMT -> DEL_ARGS
----------Function-------------------
+LOGOP -> AND
+LOGOP -> OR
+LOGOPN -> NOTB
+LOGOP -> QB
+----------Convert ===----------------
+THREEEQ -> isstricteq
+----------Convert ==----------------
+TWOEQ -> iseq
+----------Convert !=----------------
+NEQTWO -> isneq
+----------Convert !==----------------
+NEQTHREE -> notstricteq
+----------Convert >----------------
+GT -> g
+----------Convert <----------------
+LT -> l
+----------Convert <=----------------
+LTE -> leq
+----------Convert >=----------------
+GTE -> geq
+----------Convert &&----------------
+AND -> and
+----------Convert ||----------------
+OR -> or
+----------Convert !----------------
+NOTB -> notb
+----------Convert ?----------------
+QB -> qb
+----------Operator---------------
+OP -> POW
+OP -> PEQ
+OP -> MEQ
+OP -> INC
+OP -> DEC
+OP -> XOR
+OP -> ANDB
+OP -> ORB
+OP -> IS
+OP -> SUM
+OP -> SUB
+OP -> MUL
+OP -> DIV
+OP -> MOD
+OP -> AS
+OP -> IN
+----------Convert ** ----------------
+POW -> pow
+----------Convert += ----------------
+PEQ -> peq
+----------Convert -= ----------------
+MEQ -> meq
+----------Convert ++ ----------------
+INC -> inc
+----------Convert -- ----------------
+DEC -> dec
+----------Convert ^ ----------------
+XOR -> xor
+----------Convert & ----------------
+ANDB -> andb
+----------Convert | ----------------
+ORB -> orb
+----------Convert IS ----------------
+IS -> is
+----------Convert + ----------------
+SUM -> sum
+----------Convert - ----------------
+SUB -> sub
+----------Convert * ----------------
+MUL -> mul
+----------Convert / ----------------
+DIV -> div
+----------Convert % ----------------
+MOD -> mod
+----------Convert AS ----------------
+AS -> as
+----------Convert IN ----------------
+IN -> in 
+----------Function------------------
 FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI FUNC_PARAM KBKA KKKI BODY RETURN_STMT KKKA
 FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI KBKA BODY RETURN_STMT KKKA
 FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI FUNC_PARAM KBKA KKKI RETURN_STMT KKKA
@@ -66,31 +253,37 @@ FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI FUNC_PARAM KBKA KKKI BODY KKKA
 FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI KKKI BODY KKKA
 FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI FUNC_PARAM KBKA KKKI KKKA
 FUNCTION_STMT -> FUNCTION FUNC_NAME KBKI KKKI KKKA
-RETURN_STMT -> RETURN EXPR TK
-RETURN_STMT -> RETURN ID_RETURN TK
-RETURN_STMT -> RETURN ARRAY_STMT TK
-RETURN_STMT -> RETURN OBJ_STMT TK
-RETURN_STMT -> RETURN BOOL TK
-RETURN_STMT -> RETURN FUNCTION_CALL TK
+-----------Return---------------
+RETURN_STMT -> RETURN VALUE TK
+----------Function parameter-----------
 FUNC_PARAM -> VARIOUS_VAL
+----------Function call-------------
 FUNCTION_CALL -> FUNC_NAME KBKI FUNC_PARAM KBKA TK
 FUNCTION_CALL -> FUNC_NAME KBKI KBKA TK
+----------Convert FUNCTION ----------------
 FUNCTION -> function
+----------Convert RETURN ----------------
 RETURN -> return
---------Array & Tuple-------------------
+----------Array----------------
 ARRAY_STMT -> KSKI VARIOUS_VAL KSKA
-OBJ_STMT -> KKKI VARIOUS_VAL KKKA
--------Various Variable-------------
-VARIOUS_VAL -> ID_EXPR KM VARIOUS_VAL
-VARIOUS_VAL -> ID_EXPR
-VARIOUS_VAL -> EXPR KM VARIOUS_VAL
+----------List---------------
+LIST_STMT -> KKKI VARIOUS_VAL KKKA
+----------Object--------------
+OBJ_STMT -> KKKI OBJ_VAL KKKA
+OBJ_VAL -> OBJ_VAL KM OBJ_VAL
+OBJ_VAL -> OBJ_EXPR
+OBJ_EXPR -> ID TD VALUE
+---------Various value-----------
+VARIOUS_VAL -> VARIOUS_VAL KM VARIOUS_VAL
+VARIOUS_VAL -> VALUE
 VARIOUS_VAL -> EXPR
--------------While---------------------
+----------While---------------
 WHILE_STMT -> WHILE KBKI WHILE_PARAM KBKA KKKI LOOP_BODY KKKA
 WHILE_PARAM -> EXPR
-WHILE_PARAM -> ID_EXPR
+WHILE_PARAM -> VALUE
+----------Convert WHILE ----------------
 WHILE -> while
-------------Loop Body------------------
+---------Loop body----------
 LOOP_BODY ->  BODY BREAK_STMT
 LOOP_BODY -> BREAK_STMT BODY
 LOOP_BODY -> BODY BREAK_STMT BODY
@@ -98,50 +291,90 @@ LOOP_BODY -> BODY CONTINUE_STMT
 LOOP_BODY -> CONTINUE_STMT BODY
 LOOP_BODY -> BODY CONTINUE_STMT BODY
 LOOP_BODY -> BODY
------------Break----------------
+--------Break-----------
 BREAK_STMT -> BREAK TK
+----------Convert BREAK ----------------
 BREAK -> break
-----------Continue------------
+-------Continue---------
 CONTINUE_STMT -> CONTINUE TK
+----------Convert CONTINUE ----------------
 CONTINUE -> continue
-----------For---------------
+---------For------------
 FOR_STMT -> FOR KBKI FOR_PARAM KBKA KKKI LOOP_BODY KKKA
 FOR_PARAM -> TYPE_FOR TK EXPR_FOR TK INDECRE
 FOR_PARAM -> TYPE_FOR TK TK INDECRE
 FOR_PARAM -> TYPE_FOR TK EXPR_FOR TK
 FOR_PARAM -> TYPE_FOR TK TK
-TYPE_FOR -> LET
-TYPE_FOR -> VAR_NAME EQ EXPR
-EXPR_FOR -> VAR_NAME LOGOP ID_EXPR
-EXPR_FOR -> VAR_NAME LOGOP VAR_NAME
-INDECRE -> VAR_NAME INC
-INDECRE -> VAR_NAME DEC
+-------Type for i in for-----------
+TYPE_FOR -> LET ID IS NUM
+TYPE_FOR -> ID IS NUM
+----------Expression for----------
+EXPR_FOR -> ID LOGOP VALUE
+EXPR_FOR -> ID LOGOP EXPR
+--------Increment for--------------
+INDECRE -> ID INC
+INDECRE -> ID DEC
+----------Convert FOR ----------------
 FOR -> for
----------Switch--------------
+--------Switch------------
 SWITCH_STMT -> SWITCH KBKI SWITCH_PARAM KBKA KKKI SWITCH_BODY DEFAULT_STMT KKKA
 SWITCH_STMT -> SWITCH KBKI SWITCH_PARAM KBKA KKKI SWITCH_BODY KKKA
 SWITCH_STMT -> SWITCH KBKI SWITCH_PARAM KBKA KKKI KKKA
+-------Switch body----------
 SWITCH_BODY -> SWITCH_BODY SWITCH_BODY
 SWITCH_BODY -> CASE_STMT TD CASE_BODY
-CASE_STMT -> CASE ID_EXPR TK
+-------Case-----------
+CASE_STMT -> CASE EXPR TK
+-------Case Body-----------
 CASE_BODY -> BODY BREAK_STMT
 CASE_BODY -> BODY
+---------Default-----------
 DEFAULT_STMT -> DEFAULT TD BODY TK
+----------Convert SWITCH ----------------
 SWITCH -> switch
+----------Convert CASE ----------------
 CASE -> case
+----------Convert DEFAULT ----------------
 DEFAULT -> default
------------Try------------
+---------Try Catch Finally--------------
 TRY_STMT -> TRY KBKI KBKA KKKI TRY_BODY KKKA CATCH KBKI CATCH_PARAM KBKA KKKI CATCH_BODY KKKA FINALLY KKKI FINALLY_BODY KKKA
 TRY_STMT -> TRY KBKI KBKA KKKI TRY_BODY KKKA CATCH KBKI CATCH_PARAM KBKA KKKI CATCH_BODY KKKA
+--------Try Body---------------
 TRY_BODY -> BODY
-CATCH_PARAM -> ID_EXPR
+-------Catch parameter---------
+CATCH_PARAM -> EXPR
+-------Catch Body-------------
 CATCH_BODY -> BODY
+-------Finally Body---------
 FINALLY_BODY -> BODY
+----------Convert TRY ----------------
 TRY -> try
+----------Convert CATCH ----------------
 CATCH -> catch
+----------Convert FINALLY ----------------
 FINALLY -> finally
------------Throw---------
+----------Throw--------------
 THROW_STMT -> THROW NEW FUNCTION_CALL TK
 THROW_STMT -> THROW FUNCTION_CALL TK
-THROW_STMT -> THROW NEW ID_EXPR
-THROW_STMT -> THROW ID_EXPR
+THROW_STMT -> THROW NEW EXPR
+THROW_STMT -> THROW EXPR
+----------Convert THROW ----------------
+THROW -> throw
+----------Convert ) ----------------
+KBKA -> kbka
+----------Convert ( ----------------
+KBKI -> kbki
+----------Convert ( ----------------
+KKKI -> kkki
+----------Convert ) ----------------
+KKKA -> kkka
+----------Convert : ----------------
+TD -> td
+----------Convert ; ----------------
+TK -> tk
+----------Convert [ ----------------
+KSKI -> kski
+----------Convert ] ----------------
+KSKA -> kska
+----------Convert , ----------------
+KM -> km

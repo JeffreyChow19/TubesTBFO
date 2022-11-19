@@ -46,12 +46,10 @@ tokenCollection = [
     (r'\bexport\b',             "export"),
     (r'\bdelete\b',             "delete"),
     (r'\btypeof\b',             "typeof"),
-    (r'\bdelete\b',             "delete"),
     (r'\bin\b',                 "in"),
     (r'\binstanceof\b',         "instanceof"),
     (r'\bInfinity\b',           "Infinity"),
     (r'\bin\b',                 "in"),
-    (r'\binstanceof\b',         "instanceof"),
 
     # ESCAPE SEQUENCE
     (r'\n',              "newline"),
