@@ -15,9 +15,8 @@ tokenCollection = [
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
     (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
     (r'[\+\-]?[0-9]+',              "number"),
-    (r'\bconst\b',                  "type"),
-    (r'\bvar\b',                    "type"),
-    (r'\blet\b',                    "type"),
+    (r'\bvar\b',                    "var"),
+    (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
 
 
