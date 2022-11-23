@@ -1,4 +1,5 @@
 import re
+import FA
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
@@ -14,7 +15,8 @@ tokenCollection = [
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
-
+    (r'\bbool\b',                   "true"),
+    (r'\bbool\b',                   "false"),
 
     # SYNTAX
     (r'\bfunction\b',           "function"),
@@ -91,7 +93,7 @@ tokenCollection = [
     (r'\*',               "mul"),
     (r'/',                "div"),
     (r'%',                "mod"),
-
+    (r'~',                "notbit"),
 
     # Var Name, Class method, Obj Props
     (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
@@ -127,9 +129,13 @@ def lexer(text, tokenCollection):
                 if tokenTag:  # get token
                     currentTokens = tokenTag
                     if (currentTokens == "id"):
-                        print("found")
-                        print(match.group(0))
-                    usedTokens.append(currentTokens)
+                        if (FA.checkVar(match.group(0))):
+                            usedTokens.append(currentTokens)
+                        else:
+                            endLoop = True
+                            break
+                    else:
+                        usedTokens.append(currentTokens)
                 break
 
 
