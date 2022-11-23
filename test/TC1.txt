@@ -1,2 +1,2 @@
-import yel;
-if () {}
+import CFG;
+let $sa = 11

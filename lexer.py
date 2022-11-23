@@ -10,8 +10,8 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[\w]*[\W]*\"',                    "string"),
-    (r'\'[\w]*\'',                  "string"),
+    (r'\"[\w]*[\W]*\"',             "string"),
+    (r'\'[\w]*[\W]*\'',             "string"),
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
     (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
     (r'[\+\-]?[0-9]+',              "number"),
@@ -43,6 +43,7 @@ tokenCollection = [
     (r'\bfinally\b',            "finally"),
     (r'\bthrow\b',              "throw"),
     (r'\bimport\b',             "import"),
+    (r'\bfrom\b',               "from"),
     (r'\bexport\b',             "export"),
     (r'\bdelete\b',             "delete"),
     (r'\btypeof\b',             "typeof"),
@@ -50,7 +51,7 @@ tokenCollection = [
     (r'\binstanceof\b',         "instanceof"),
     (r'\bInfinity\b',           "Infinity"),
     (r'\bin\b',                 "in"),
-
+    (r'\bas\b',                 "as"),
     # ESCAPE SEQUENCE
     (r'\n',              "newline"),
     (r'\(',              "kbki"),  # kurung biasa kiri
@@ -108,36 +109,70 @@ def lexer(text, tokenCollection):
     currentLine = 1  # current line
     usedTokens = []
     pointerText = 0  # text pointer
-    while(pointerText < len(text)):
+    currentLineStr = ""
+    endLoop = False
+    while(pointerText < len(text) and not endLoop):
         if text[pointerText] == '\n':
+            # print(currentPos)
+            # print(text[pointerText])
             currentLine += 1
             currentPos = 1
+            currentLineStr = ""
 
+        # currentLineStr += text[currentLine]
+        # print(text[currentPos], end="")
         match = None
-
+        # print(currentPos)
+        counter = 0
+        finishCopy = False
         for tokenExpr in tokenCollection:
             pattern, tokenTag = tokenExpr
 
             regex = re.compile(pattern)  # init regex
             # check till current pointer
             match = regex.match(text, pointerText)
-
+            
+            # if (text[counter] != '\n' and not finishCopy):
+            #     print(text[counter], end="")
+            #     counter += 1
+            # else:
+            #     finishCopy = True
             if match:  # check matcher
                 if tokenTag:  # get token
                     currentTokens = tokenTag
                     usedTokens.append(currentTokens)
                 break
 
+
         if not match:  # throws error if not match
-            print(
-                f"\nSyntax Error!\nLine: {currentLine},{currentPos} (character: {text[pointerText]})")
-            sys.exit(1)
+            endLoop = True
+            break
         else:  # set current text pointer to end of current match position
             # set pointer to end of current match position
             pointerText = match.end(0)
 
         currentPos += 1
-    print(usedTokens)
+    counterNewLine = 1
+    pastedLine = False
+    # print(currentLine)
+    if (endLoop):
+        # for i in range(pointerText):
+        #     if (text[i] == '\n'):
+        #         counterNewLine += 1
+        #         if (counterNewLine == currentLine):
+        #             j = i + 1
+        #             while (text[j] != '\n' or text[j] != ""):
+        #                 print(text[j])
+        #                 currentLineStr += text[j]
+        #                 j += 1
+        #             if (text[j] == '\n'):
+        #                 pastedLine = True
+        #     if (pastedLine):
+        #         break
+        print(
+                f"\nSyntax Error!\nLine: {currentLine}. (\"{currentLineStr}\")")
+    else:
+        print(usedTokens)
     return usedTokens
 
 
@@ -154,4 +189,4 @@ def parseToToken(path):
     return tokenInText
 
 
-# parseTextToken('test/TC1.txt')
+parseToToken('test/TC1.txt')
