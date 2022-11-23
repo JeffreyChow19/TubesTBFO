@@ -56,7 +56,6 @@ class Grammar:
                             #     print(x)
 
                             # print()
-                            print(unit[0])
                             for item in self.CFG[unit[0]]:
                                 # print(unit)
                                 # print(item)
@@ -65,7 +64,7 @@ class Grammar:
                             self.updateKeyVal()
             recheck = changed
 
-        self.printCFG()
+        # self.printCFG()
 
         # remove useless production
         for rule in list(self.CFG):
@@ -76,10 +75,11 @@ class Grammar:
                         useless = False
                         break
             if useless:
+                # print(self.CFG[rule])
                 del self.CFG[rule]
                 self.updateKeyVal()
 
-        # self.printCFG()
+        self.printCFG()
 
         # Eliminate terminals from RHS if they exist with other terminals or non-terminals
         # for key in self.keys:
@@ -149,6 +149,8 @@ class Grammar:
 
         self.CFGtoCNF()
 
+        # print()
+        # print()
         # self.printCFG()
 
         return self.CFG

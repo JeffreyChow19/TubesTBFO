@@ -1,1 +1,2 @@
-let w = *kontol
+import yel;
+if () {}

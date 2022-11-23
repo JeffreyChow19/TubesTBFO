@@ -1,0 +1,15 @@
+S -> S S
+S -> HEAD
+S -> BODY
+HEAD -> IMPORT_STMT
+BODY -> IF_STMT
+IMPORT_STMT -> IMPORT ID TK
+IF_STMT -> IF KBKI KBKA KKKI KKKA
+IMPORT -> import
+ID -> id
+TK -> tk
+KBKA -> kbka
+KBKI -> kbki
+KKKA -> kkka
+KKKI -> kkki
+IF -> if
