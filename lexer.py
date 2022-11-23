@@ -10,8 +10,8 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[\w]*[\W]*\"',             "string"),
-    (r'\'[\w]*[\W]*\'',             "string"),
+    (r'\"[\W]*[\w]*[\W]*[\w]*[\W]*\"',             "string"),
+    (r'\'[\W]*[\w]*[\W]*[\w]*[\W]*\'',             "string"),
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
     (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
     (r'[\+\-]?[0-9]+',              "number"),
@@ -109,7 +109,6 @@ def lexer(text, tokenCollection):
     currentLine = 1  # current line
     usedTokens = []
     pointerText = 0  # text pointer
-    currentLineStr = ""
     endLoop = False
     while(pointerText < len(text) and not endLoop):
         if text[pointerText] == '\n':
@@ -117,7 +116,6 @@ def lexer(text, tokenCollection):
             # print(text[pointerText])
             currentLine += 1
             currentPos = 1
-            currentLineStr = ""
 
         # currentLineStr += text[currentLine]
         # print(text[currentPos], end="")
@@ -153,24 +151,27 @@ def lexer(text, tokenCollection):
 
         currentPos += 1
     counterNewLine = 1
-    pastedLine = False
-    # print(currentLine)
+    foundErrorLine = False
+    currentLineStr = ""
+    print(currentLine)
     if (endLoop):
-        # for i in range(pointerText):
-        #     if (text[i] == '\n'):
-        #         counterNewLine += 1
-        #         if (counterNewLine == currentLine):
-        #             j = i + 1
-        #             while (text[j] != '\n' or text[j] != ""):
-        #                 print(text[j])
-        #                 currentLineStr += text[j]
-        #                 j += 1
-        #             if (text[j] == '\n'):
-        #                 pastedLine = True
-        #     if (pastedLine):
-        #         break
+        for i in range(len(text)):
+            # if (text[i] == '\n'):
+            #     counterNewLine += 1
+                # if (counterNewLine == currentLine):
+            if (text[i] == '\n' and not foundErrorLine):
+                counterNewLine += 1
+            if (counterNewLine == currentLine and not foundErrorLine):
+                i += 1
+            if (counterNewLine == currentLine):
+                if (text[i] == '\n' or i == len(text) - 1):
+                    break
+                else:
+                    print(text[i], end="")
+                    foundErrorLine = True
+                    currentLineStr += text[i]
         print(
-                f"\nSyntax Error!\nLine: {currentLine}. (\"{currentLineStr}\")")
+                f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
         print(usedTokens)
     return usedTokens
