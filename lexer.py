@@ -1,5 +1,5 @@
 import re
-import sys
+import FA
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
@@ -15,7 +15,8 @@ tokenCollection = [
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
-
+    (r'\bbool\b',                   "true"),
+    (r'\bbool\b',                   "false"),
 
     # SYNTAX
     (r'\bfunction\b',           "function"),
@@ -92,7 +93,7 @@ tokenCollection = [
     (r'\*',               "mul"),
     (r'/',                "div"),
     (r'%',                "mod"),
-
+    (r'~',                "notbit"),
 
     # Var Name, Class method, Obj Props
     (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
@@ -112,35 +113,29 @@ def lexer(text, tokenCollection):
     endLoop = False
     while(pointerText < len(text) and not endLoop):
         if text[pointerText] == '\n':
-            # print(currentPos)
-            # print(text[pointerText])
             currentLine += 1
             currentPos = 1
 
-        # currentLineStr += text[currentLine]
-        # print(text[currentPos], end="")
+
         match = None
-        # print(currentPos)
-        counter = 0
-        finishCopy = False
         for tokenExpr in tokenCollection:
             pattern, tokenTag = tokenExpr
 
             regex = re.compile(pattern)  # init regex
             # check till current pointer
             match = regex.match(text, pointerText)
-            # if (text[counter] != '\n' and not finishCopy):
-            #     print(text[counter], end="")
-            #     counter += 1
-            # else:
-            #     finishCopy = True
+
             if match:  # check matcher
                 if tokenTag:  # get token
                     currentTokens = tokenTag
                     if (currentTokens == "id"):
-                        print("found")
-                        print(match.group(0))
-                    usedTokens.append(currentTokens)
+                        if (FA.checkVar(match.group(0))):
+                            usedTokens.append(currentTokens)
+                        else:
+                            endLoop = True
+                            break
+                    else:
+                        usedTokens.append(currentTokens)
                 break
 
 
