@@ -1,17 +1,1 @@
-/* function name jimly */
-function jimly(firdaus){
-    var a = "jimly"
-    let b = "firdaus"
-    const pi = 3.14
-    let name = a + b
-    console.log(name)
-
-    // return value to name
-    return name
-}
-
-
-jimly(jelek);
-export default {
-    
-}
+let a = "$";  

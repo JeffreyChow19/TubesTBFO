@@ -10,7 +10,7 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'"[\w]*"',                    "string"),
+    (r'\"[\w]*[\W]*\"',                    "string"),
     (r'\'[\w]*\'',                  "string"),
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
     (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
@@ -141,7 +141,7 @@ def lexer(text, tokenCollection):
     return usedTokens
 
 
-def parseTextToken(path):
+def parseToToken(path):
     file = open(path)
     text = file.read()
     file.close()
@@ -154,4 +154,4 @@ def parseTextToken(path):
     return tokenInText
 
 
-parseTextToken('test/TC1.txt')
+parseToToken('test/TC1.txt')
