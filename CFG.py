@@ -64,7 +64,7 @@ class Grammar:
                             self.updateKeyVal()
             recheck = changed
 
-        # self.printCFG()
+        self.printCFG()
 
         # remove useless production
         for rule in list(self.CFG):
@@ -79,7 +79,7 @@ class Grammar:
                 del self.CFG[rule]
                 self.updateKeyVal()
 
-        self.printCFG()
+        # self.printCFG()
 
         # Eliminate terminals from RHS if they exist with other terminals or non-terminals
         # for key in self.keys:
