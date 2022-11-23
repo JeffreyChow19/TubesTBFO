@@ -1,2 +1,3 @@
 import CFG;
-let $sa = 11
+
+                    ".,,a.sdad12231$$$ " import CFG from "string.tr"
