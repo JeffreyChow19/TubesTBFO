@@ -10,11 +10,8 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[\w]*[\W]*\"',             "string"),
-    (r'\'[\w]*[\W]*\'',             "string"),
-    (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
-    (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
-    (r'[\+\-]?[0-9]+',              "number"),
+    (r'\"[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*\"',             "string"),
+    (r'\'[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*',             "string"),
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
@@ -100,7 +97,10 @@ tokenCollection = [
     # Var Name, Class method, Obj Props
     (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
     (r'\.',                                                      "titik"),
-    (r'[a-zA-Z_][a-zA-Z0-9_]*',                                  "id"),
+    (r'[0-9]*[a-zA-Z_][a-zA-Z0-9_]*',                            "id"),
+    (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
+    (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
+    (r'[\+\-]?[0-9]+',              "number"),
 ]
 
 
@@ -109,7 +109,6 @@ def lexer(text, tokenCollection):
     currentLine = 1  # current line
     usedTokens = []
     pointerText = 0  # text pointer
-    currentLineStr = ""
     endLoop = False
     while(pointerText < len(text) and not endLoop):
         if text[pointerText] == '\n':
@@ -117,7 +116,6 @@ def lexer(text, tokenCollection):
             # print(text[pointerText])
             currentLine += 1
             currentPos = 1
-            currentLineStr = ""
 
         # currentLineStr += text[currentLine]
         # print(text[currentPos], end="")
@@ -131,7 +129,6 @@ def lexer(text, tokenCollection):
             regex = re.compile(pattern)  # init regex
             # check till current pointer
             match = regex.match(text, pointerText)
-            
             # if (text[counter] != '\n' and not finishCopy):
             #     print(text[counter], end="")
             #     counter += 1
@@ -140,6 +137,9 @@ def lexer(text, tokenCollection):
             if match:  # check matcher
                 if tokenTag:  # get token
                     currentTokens = tokenTag
+                    if (currentTokens == "id"):
+                        print("found")
+                        print(match.group(0))
                     usedTokens.append(currentTokens)
                 break
 
@@ -153,24 +153,21 @@ def lexer(text, tokenCollection):
 
         currentPos += 1
     counterNewLine = 1
-    pastedLine = False
-    # print(currentLine)
+    foundErrorLine = False
+    currentLineStr = ""
     if (endLoop):
-        # for i in range(pointerText):
-        #     if (text[i] == '\n'):
-        #         counterNewLine += 1
-        #         if (counterNewLine == currentLine):
-        #             j = i + 1
-        #             while (text[j] != '\n' or text[j] != ""):
-        #                 print(text[j])
-        #                 currentLineStr += text[j]
-        #                 j += 1
-        #             if (text[j] == '\n'):
-        #                 pastedLine = True
-        #     if (pastedLine):
-        #         break
+        for i in range(len(text)):
+            if (text[i] == '\n' and not foundErrorLine):
+                counterNewLine += 1
+            else:
+                if (counterNewLine == currentLine):
+                    if (text[i] == '\n' or i == len(text)):
+                        break
+                    else:
+                        foundErrorLine = True
+                        currentLineStr += text[i]
         print(
-                f"\nSyntax Error!\nLine: {currentLine}. (\"{currentLineStr}\")")
+                f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
         print(usedTokens)
     return usedTokens
