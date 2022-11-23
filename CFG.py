@@ -41,7 +41,7 @@ class Grammar:
         if startInRHS:
             self.createProduction('S0', [startSymbol])
 
-        self.printCFG()
+        # self.printCFG()
         # Eliminate unit production
         recheck = True
         while recheck:
@@ -51,7 +51,15 @@ class Grammar:
                     if (len(unit) == 1):
                         if not unit[0].islower():
                             self.CFG[rule].remove(unit)
+
+                            # for x in self.CFG[rule]:
+                            #     print(x)
+
+                            # print()
+                            print(unit[0])
                             for item in self.CFG[unit[0]]:
+                                # print(unit)
+                                # print(item)
                                 self.CFG[rule].append(item)
                             changed = True
                             self.updateKeyVal()
@@ -71,7 +79,7 @@ class Grammar:
                 del self.CFG[rule]
                 self.updateKeyVal()
 
-        self.printCFG()
+        # self.printCFG()
 
         # Eliminate terminals from RHS if they exist with other terminals or non-terminals
         # for key in self.keys:
@@ -107,11 +115,11 @@ class Grammar:
                         self.updateKeyVal()
                         changed = True
 
-                        self.printCFG()
+                        # self.printCFG()
 
             recheck = changed
 
-        self.printCFG()
+        # self.printCFG()
 
     def parseCFG(self, filename):
         file = open(filename, 'r')
@@ -140,5 +148,7 @@ class Grammar:
         self.updateKeyVal()
 
         self.CFGtoCNF()
+
+        # self.printCFG()
 
         return self.CFG

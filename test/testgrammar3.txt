@@ -6,7 +6,8 @@ A -> a A S
 A -> a S
 A -> a
 B -> S b S
-B -> b b
+B -> b
 B -> a A S
 B -> a S
 B -> a
+S -> b

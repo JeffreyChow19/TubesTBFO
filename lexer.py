@@ -154,4 +154,4 @@ def parseToToken(path):
     return tokenInText
 
 
-parseToToken('test/TC1.txt')
+# parseTextToken('test/TC1.txt')
