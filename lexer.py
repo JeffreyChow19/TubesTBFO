@@ -31,7 +31,6 @@ tokenCollection = [
     (r'\btrue\b',               "true"),
     (r'\bfalse\b',              "false"),
     (r'\bnull\b',               "null"),
-    (r'\bexport default\b',     "export default"),
     (r'\bswitch\b',             "switch"),
     (r'\bcase\b',               "case"),
     (r'\bdefault\b',            "default"),
