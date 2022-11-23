@@ -1,2 +1,5 @@
 import CFG;
-let $sa = 11
+import *;
+import CFG from "test.txt";
+if(){}
+
