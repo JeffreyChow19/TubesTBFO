@@ -1,5 +1,5 @@
 import re
-import sys
+import FA
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
@@ -10,15 +10,13 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[\W]*[\w]*[\W]*[\w]*[\W]*\"',             "string"),
-    (r'\'[\W]*[\w]*[\W]*[\w]*[\W]*\'',             "string"),
-    (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
-    (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
-    (r'[\+\-]?[0-9]+',              "number"),
+    (r'\"[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*\"',             "string"),
+    (r'\'[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*',             "string"),
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
-
+    (r'\bbool\b',                   "true"),
+    (r'\bbool\b',                   "false"),
 
     # SYNTAX
     (r'\bfunction\b',           "function"),
@@ -95,12 +93,15 @@ tokenCollection = [
     (r'\*',               "mul"),
     (r'/',                "div"),
     (r'%',                "mod"),
-
+    (r'~',                "notbit"),
 
     # Var Name, Class method, Obj Props
     (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
     (r'\.',                                                      "titik"),
-    (r'[a-zA-Z_][a-zA-Z0-9_]*',                                  "id"),
+    (r'[0-9]*[a-zA-Z_][a-zA-Z0-9_]*',                            "id"),
+    (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
+    (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
+    (r'[\+\-]?[0-9]+',              "number"),
 ]
 
 
@@ -112,33 +113,29 @@ def lexer(text, tokenCollection):
     endLoop = False
     while(pointerText < len(text) and not endLoop):
         if text[pointerText] == '\n':
-            # print(currentPos)
-            # print(text[pointerText])
             currentLine += 1
             currentPos = 1
 
-        # currentLineStr += text[currentLine]
-        # print(text[currentPos], end="")
+
         match = None
-        # print(currentPos)
-        counter = 0
-        finishCopy = False
         for tokenExpr in tokenCollection:
             pattern, tokenTag = tokenExpr
 
             regex = re.compile(pattern)  # init regex
             # check till current pointer
             match = regex.match(text, pointerText)
-            
-            # if (text[counter] != '\n' and not finishCopy):
-            #     print(text[counter], end="")
-            #     counter += 1
-            # else:
-            #     finishCopy = True
+
             if match:  # check matcher
                 if tokenTag:  # get token
                     currentTokens = tokenTag
-                    usedTokens.append(currentTokens)
+                    if (currentTokens == "id"):
+                        if (FA.checkVar(match.group(0))):
+                            usedTokens.append(currentTokens)
+                        else:
+                            endLoop = True
+                            break
+                    else:
+                        usedTokens.append(currentTokens)
                 break
 
 
@@ -153,23 +150,17 @@ def lexer(text, tokenCollection):
     counterNewLine = 1
     foundErrorLine = False
     currentLineStr = ""
-    print(currentLine)
     if (endLoop):
         for i in range(len(text)):
-            # if (text[i] == '\n'):
-            #     counterNewLine += 1
-                # if (counterNewLine == currentLine):
             if (text[i] == '\n' and not foundErrorLine):
                 counterNewLine += 1
-            if (counterNewLine == currentLine and not foundErrorLine):
-                i += 1
-            if (counterNewLine == currentLine):
-                if (text[i] == '\n' or i == len(text) - 1):
-                    break
-                else:
-                    print(text[i], end="")
-                    foundErrorLine = True
-                    currentLineStr += text[i]
+            else:
+                if (counterNewLine == currentLine):
+                    if (text[i] == '\n' or i == len(text)):
+                        break
+                    else:
+                        foundErrorLine = True
+                        currentLineStr += text[i]
         print(
                 f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
