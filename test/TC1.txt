@@ -1,3 +1,1 @@
-import CFG;
-
-let 123sa = 11
+let a = b + 5 - 9
