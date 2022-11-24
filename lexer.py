@@ -162,10 +162,8 @@ def lexer(text, tokenCollection):
         print(f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
         if (FA.checkExpr(usedTokens) == True):
-            print(usedTokens)
             return usedTokens
         else:
-            print(usedTokens)
             currentNewline = 0
             errorIndex = FA.checkExpr(usedTokens)
             newlineCounter = 0
