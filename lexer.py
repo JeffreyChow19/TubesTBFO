@@ -25,6 +25,7 @@ tokenCollection = [
     (r'\belse\b',               "else"),
     (r'\belse if\b',            "else if"),
     (r'\bfor\b',                "for"),
+    (r'\bof\b',                 "of"),
     (r'\bwhile\b',              "while"),
     (r'\bcontinue\b',           "continue"),
     (r'\bbreak\b',              "break"),
