@@ -1,17 +1,51 @@
 import CFG
 import CYK
 import lexer
+import argparse
+import time
+from colorama import Fore, Back, Style
 
+
+def splash():
+    print(Fore.YELLOW)
+    print("============")
+    print("三位棉兰男神")
+    print("============")
+    print(Style.RESET_ALL)
+
+
+# splash screen
+splash()
+
+# argparse
+try:
+    parser = argparse.ArgumentParser()
+    parser.add_argument('file', type=argparse.FileType('r'))
+    args = parser.parse_args()
+    filename = args.file.name
+except:
+    print(Fore.RED + "\nFile not found :)\n" + Style.RESET_ALL)
+
+# grammar
 grammar = CFG.Grammar().parseCFG('grammar.txt')
 
-# for x in grammar:
-#     print(x)
+# lexer
+lexer = lexer.parseToToken(filename)
 
-# lexer = ['a', 'a', 'b', 'b', 'a', 'b']
-# ans = CYK.cykParse(lexer, grammar)
+# CYK algorithm
+result = CYK.cykParse(lexer, grammar)
 
-
-print(lexer)
-ans = CYK.cykParse(lexer, grammar)
-
-print(ans)
+# Result
+if result:
+    print(Fore.GREEN)
+    print("|--------------------|")
+    print("| Compile Success!!! |")
+    print("|--------------------|")
+    print(Style.RESET_ALL)
+else:
+    print(Fore.RED)
+    print("|------------------|")
+    print("| Compile Error... |")
+    print("|------------------|")
+    print(Style.RESET_ALL)
+print(result)

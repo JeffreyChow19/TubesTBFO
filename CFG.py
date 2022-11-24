@@ -64,8 +64,6 @@ class Grammar:
                             self.updateKeyVal()
             recheck = changed
 
-        self.printCFG()
-
         # remove useless production
         for rule in list(self.CFG):
             useless = True
@@ -78,21 +76,6 @@ class Grammar:
                 # print(self.CFG[rule])
                 del self.CFG[rule]
                 self.updateKeyVal()
-
-        # self.printCFG()
-
-        # Eliminate terminals from RHS if they exist with other terminals or non-terminals
-        # for key in self.keys:
-        #     for value in self.CFG[key]:
-        #         if len(value) > 1:
-        #             for item in value:
-        #                 if item.islower():
-        #                     newVar = self.newVar()
-        #                     self.createProduction(newVar, item)
-        #                     (self.CFG[key])[(self.CFG[key]).index(
-        #                         value)] = list(map(lambda x: x.replace(item, newVar), (self.CFG[key])[(self.CFG[key]).index(
-        #                             value)]))
-        #                     self.updateKeyVal()
 
         # Eliminate RHS with more than two non-terminals.
         recheck = True
@@ -115,11 +98,7 @@ class Grammar:
                         self.updateKeyVal()
                         changed = True
 
-                        # self.printCFG()
-
             recheck = changed
-
-        # self.printCFG()
 
     def parseCFG(self, filename):
         file = open(filename, 'r')
@@ -129,7 +108,6 @@ class Grammar:
         rules = file.readline()
 
         while rules != "":
-            print(rules)
             # remove enter
             rules = rules.replace("\n", "")
             # split parent and child
@@ -149,9 +127,5 @@ class Grammar:
         self.updateKeyVal()
 
         self.CFGtoCNF()
-
-        # print()
-        # print()
-        # self.printCFG()
 
         return self.CFG

@@ -105,6 +105,7 @@ tokenCollection = [
     (r'[\+\-]?[0-9]+',              "number"),
 ]
 
+
 def lexer(text, tokenCollection):
     currentPos = 1  # position in current line
     currentLine = 1  # current line
@@ -170,7 +171,7 @@ def lexer(text, tokenCollection):
             for i in range(errorIndex):
                 if (usedTokens[i] == 'newline'):
                     newlineCounter += 1
-            
+
             i = 0
             while (currentNewline < newlineCounter):
                 if (text[i] == '\n'):
@@ -181,9 +182,10 @@ def lexer(text, tokenCollection):
                 currentLineStr += text[i]
                 i += 1
             currentNewline += 1
-            print(f"\nInvalid Expression!\nLine {currentNewline} : (\"{currentLineStr}\")")
+            print(
+                f"\nInvalid Expression!\nLine {currentNewline} : (\"{currentLineStr}\")")
             sys.exit(1)
-            
+
 
 def parseToToken(path):
     file = open(path)
