@@ -10,8 +10,8 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[\\]*[\_\w\_\W]*[\\]*[\_\W\_\w]*[\\]*\"',             "string"),
-    (r'\'[\\]*[\_\w\_\W]*[\\]*[\_\W\_\w]*[\\]*\'',             "string"),
+    (r'\"[^\"\n]*\"',               "string"),
+    (r'\'[^\"\n]*\'',               "string"),
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
@@ -154,7 +154,7 @@ def lexer(text, tokenCollection):
     foundErrorLine = False
     currentLineStr = ""
     if (endLoop):
-        print(text[pointerText])
+    
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
                 counterNewLine += 1
@@ -185,4 +185,4 @@ def parseToToken(path):
     return tokenInText
 
 
-parseToToken('test/TC1.txt')
+parseToToken('test/javascript_test.js')
