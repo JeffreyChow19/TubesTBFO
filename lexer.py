@@ -23,7 +23,6 @@ tokenCollection = [
     (r'\breturn\b',             "return"),
     (r'\bif\b',                 "if"),
     (r'\belse\b',               "else"),
-    (r'\belse if\b',            "else if"),
     (r'\bfor\b',                "for"),
     (r'\bof\b',                 "of"),
     (r'\bwhile\b',              "while"),

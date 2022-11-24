@@ -1,25 +1,25 @@
 const question_bar = document.getElementById('question-bar');
-const start_button = document.getElementById("start-button")
-const start_prompt = document.querySelector(".start-prompt")
-const restart_button = document.getElementById('restart-button')
-const result_prompt = document.querySelector('.result-prompt')
-let result_bar = document.getElementById('result-bar')
-const prog_bar = document.querySelector(".prog-bar")
-const outer_bg = document.querySelector(".outer-background")
-const outer_bg_contents = document.querySelector('.outer-background-contents')
-const result_arr = ['Happy' , 'Neutral' , 'Sad']
+const start_button = document.getElementById("start-button");
+const start_prompt = document.querySelector(".start-prompt");
+const restart_button = document.getElementById('restart-button');
+const result_prompt = document.querySelector('.result-prompt');
+let result_bar = document.getElementById('result-bar');
+const prog_bar = document.querySelector(".prog-bar");
+const outer_bg = document.querySelector(".outer-background");
+const outer_bg_contents = document.querySelector('.outer-background-contents');
+const result_arr = ['Happy' , 'Neutral' , 'Sad'];
 
 // for user history
 var history_score = JSON.parse(localStorage.getItem("history_array"));
-if (history_score == null) history_score = [] // catch if empty
-const history_prompt = document.querySelector(".history-prompt")
-const last_result_bar = document.getElementById("last-result-bar")
-const all_result_bar = document.getElementById("all-result-bar")
+if (history_score == null){ history_score = []}; // catch if empty
+const history_prompt = document.querySelector(".history-prompt");
+const last_result_bar = document.getElementById("last-result-bar");
+const all_result_bar = document.getElementById("all-result-bar");
 
 // for user progress
 let current_index = 0;
-const red_button = document.getElementById("red")
-const green_button = document.getElementById("green")
+const red_button = document.getElementById("red");
+const green_button = document.getElementById("green");
 const arr_of_question = ['Was your morning any good?','Was today a good day?','Was there something good happened recently?','Have you achieved something big today?'
 ,'Is there something good happening tonight?','Do you want this day to not go past quickly?','Are you feeling happy right now?','Did you sleep well last night?','Do you feel being loved enough today?','Are you waiting for todays lunch?'];
 let score = 0;
@@ -27,13 +27,13 @@ let current_progress = Number(document.getElementById("bar-fill").style.width); 
 const maxProgress = 10;
 
 // user progress
-const progress = () => {
+function progress () {
     current_progress++; 
     document.getElementById("bar-fill").style.width = String(100*current_progress/maxProgress)+"%";
 }
 
 // reset animation for button and question if n of answered question < 10
-const resetAnimation = () => {
+function resetAnimation () {
     const question_bar_animation = document.getElementById("question-bar");
     const red_button_animation = document.getElementById("red");
     const green_button_animation = document.getElementById("green");
@@ -49,7 +49,7 @@ const resetAnimation = () => {
 }
 
 // calculating animation function
-const pre_result_animation = () => {
+function pre_result_animation () {
     question_bar.classList.remove('question-bar');
     question_bar.classList.add('stop');
     question_bar.style.pointerEvents = "none";
@@ -61,15 +61,10 @@ const pre_result_animation = () => {
     outer_bg_contents.innerHTML = '<p>|</p>'
 }
 
-// timeout
-const timeout = (millis) => {
-    return new Promise(
-        (resolve) => setTimeout(resolve, millis)
-    )
-}
+
 // result
-const result = (score, condition) => {
-    history_score.push(score)
+function result (score, condition) {
+    history_score.push(score);
     localStorage.setItem("history_array", JSON.stringify(history_score));
     setActive(result_prompt);
     setActive(outer_bg , condition);
@@ -87,50 +82,21 @@ const result = (score, condition) => {
     }
 }
 
-const setActive = (elmt, value = true) => {
-    if(value) {elmt.classList.remove("hidden"); elmt.style.pointerEvents = "initial"}
-    else {elmt.classList.add("hidden"); elmt.style.pointerEvents = "none"}
+function setActive (elmt, value = true) {
+    if(value) {elmt.classList.remove("hidden"); elmt.style.pointerEvents = "initial";}
+    else {elmt.classList.add("hidden"); elmt.style.pointerEvents = "none";}
 }
 
-// events on button clicks
-red_button.onclick = () => {
-    current_index++;
-    if (current_index <= 10){
-        resetAnimation();
-        question_bar.textContent = arr_of_question[current_index];
-        progress();
-        if (current_index >= 10){ 
-            pre_result_animation()
-            timeout(2000).then(()=>{
-                result(score, false);
-            }) 
-        }
-    }    
-}
-green_button.onclick = () => {
-    current_index++;
-    if (current_index <= 10){ 
-        resetAnimation();
-        score++;  
-        question_bar.textContent = arr_of_question[current_index];
-        progress();
-        if (current_index >= 10){
-            pre_result_animation();
-            timeout(2000).then(()=>{
-                result(score, false);
-            }) 
-        }
-    }
-}
+
 // restart quiz + store historical score to local
-const restart = () => {
+function restart () {
     localStorage.setItem("history_array",JSON.stringify(history_score)); //moved it to result()
     location.reload();
 }
 
 // fetch historical score from local
-const history_bar = document.getElementById('history-arr')
-const get_history = () => {
+const history_bar = document.getElementById('history-arr');
+function get_history () {
     let string_array = localStorage.getItem("history_array");
     history_score = JSON.parse(string_array);
 
@@ -138,31 +104,18 @@ const get_history = () => {
 
     let result_mean = result_total = 0;
     for (let i = 0; i<history_score.length;i++){
-        result_total += history_score[i]
+        result_total += history_score[i];
     }
 
-    result_last = history_score[history_score.length-1].toFixed(3)
-    result_mean = (result_total /= history_score.length).toFixed(3)
+    result_last = history_score[history_score.length-1].toFixed(3);
+    result_mean = (result_total /= history_score.length).toFixed(3);
 
-    last_result_bar.style.width = String(result_last) + "em"
-    all_result_bar.style.width = String(result_mean) + "em"
+    last_result_bar.style.width = String(result_last) + "em";
+    all_result_bar.style.width = String(result_mean) + "em";
 
-    last_result_bar.innerHTML = result_last
-    all_result_bar.innerHTML = result_mean
+    last_result_bar.innerHTML = result_last;
+    all_result_bar.innerHTML = result_mean;
 
-    setActive(history_prompt)
+    setActive(history_prompt);
     
-}
-
-window.onload = () => { // initiate
-    setActive(outer_bg, false);
-    setActive(prog_bar, false);
-    setActive(result_prompt, false);
-    setActive(history_prompt, false);
-}
-
-start_button.onclick = () =>{
-    setActive(outer_bg)
-    setActive(prog_bar)
-    setActive(start_prompt, false)
 }
