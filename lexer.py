@@ -11,7 +11,7 @@ tokenCollection = [
 
     # DATA TYPES
     (r'\"[^\"\n]*\"',               "string"),
-    (r'\'[^\"\n]*\'',               "string"),
+    (r'\'[^\'\n]*\'',               "string"),
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
@@ -82,8 +82,8 @@ tokenCollection = [
     (r'\*\*',             "pow"),
     (r'\+\=',             "peq"),  # plus equal
     (r'\-\=',             "meq"),  # minus equal
-    (r'\*\=',             "muleq"), # multiply equal
-    (r'\/\=',             "diveq"), # div equal
+    (r'\*\=',             "muleq"),  # multiply equal
+    (r'\/\=',             "diveq"),  # div equal
     (r'\+\+',             "inc"),  # increment
     (r'\-\-',             "dec"),  # decrement
     (r'\^',               "xor"),
@@ -118,7 +118,6 @@ def lexer(text, tokenCollection):
             currentLine += 1
             currentPos = 1
 
-
         match = None
         for tokenExpr in tokenCollection:
             pattern, tokenTag = tokenExpr
@@ -140,7 +139,6 @@ def lexer(text, tokenCollection):
                         usedTokens.append(currentTokens)
                 break
 
-
         if not match:  # throws error if not match
             endLoop = True
             break
@@ -153,7 +151,7 @@ def lexer(text, tokenCollection):
     foundErrorLine = False
     currentLineStr = ""
     if (endLoop):
-    
+
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
                 counterNewLine += 1
@@ -165,7 +163,7 @@ def lexer(text, tokenCollection):
                         foundErrorLine = True
                         currentLineStr += text[i]
         print(
-                f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
+            f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
         print(usedTokens)
     return usedTokens
@@ -184,4 +182,4 @@ def parseToToken(path):
     return tokenInText
 
 
-parseToToken('test/javascript_test.js')
+parseToToken('test/TC1.txt')
