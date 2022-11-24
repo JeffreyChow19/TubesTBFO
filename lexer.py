@@ -84,7 +84,7 @@ tokenCollection = [
     (r'\+\=',             "peq"),  # plus equal
     (r'\-\=',             "meq"),  # minus equal
     (r'\*\=',             "muleq"), # multiply equal
-    (r'\/\=',             "muleq"), # div equal
+    (r'\/\=',             "diveq"), # div equal
     (r'\+\+',             "inc"),  # increment
     (r'\-\-',             "dec"),  # decrement
     (r'\^',               "xor"),
