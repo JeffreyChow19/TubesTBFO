@@ -1,6 +1,11 @@
-const employee = {
-    first : "John",
-    lastname : "Doe"
-};
+try{
+    throw "myExecution";
+}catch(e){
+    if(i instanceof a){
+        return 0;
+    }else if(i instanceof b){
 
-delete employee.Math;
+    }else{
+        logMyError(e);
+    }
+}
