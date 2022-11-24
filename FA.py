@@ -19,7 +19,8 @@ def checkVar(var):
     return True
 
 
-def checkExpr(tokens):
+def checkExpr(token):
+    tokens = token
     type1 = {
         'front': ['string', 'number', 'id'],
         'back': ['string', 'number', 'id'],
@@ -89,6 +90,7 @@ def checkExpr(tokens):
     }
 
     for i in range(len(tokens)):
+        print(tokens[i])
         if tokens[i] in type1['ops']:
             try:
                 if tokens[i-1] not in type1['front'] or tokens[i+1] not in type1['back']:

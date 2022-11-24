@@ -1,5 +1,1 @@
-const c = {
-    name: "Jimly",
-    age: 12,
-    bool: true
-};
+
