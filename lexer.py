@@ -32,7 +32,6 @@ tokenCollection = [
     (r'\btrue\b',               "true"),
     (r'\bfalse\b',              "false"),
     (r'\bnull\b',               "null"),
-    (r'\bexport default\b',     "export default"),
     (r'\bswitch\b',             "switch"),
     (r'\bcase\b',               "case"),
     (r'\bdefault\b',            "default"),
@@ -50,6 +49,7 @@ tokenCollection = [
     (r'\binstanceof\b',         "instanceof"),
     (r'\bInfinity\b',           "infinity"),
     (r'\bin\b',                 "in"),
+    (r'\bof\b',                 "of"),
     (r'\bas\b',                 "as"),
     # ESCAPE SEQUENCE
     (r'\n',              "newline"),
@@ -99,7 +99,7 @@ tokenCollection = [
     (r'~',                "notbit"),
 
     # Var Name, Class method, Obj Props
-    (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
+    # (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
     (r'\.',                                                      "titik"),
     (r'[0-9]*[a-zA-Z_][a-zA-Z0-9_]*',                            "id"),
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),

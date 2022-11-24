@@ -129,6 +129,7 @@ class Grammar:
         rules = file.readline()
 
         while rules != "":
+            print(rules)
             # remove enter
             rules = rules.replace("\n", "")
             # split parent and child

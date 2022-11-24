@@ -1,15 +1,132 @@
-S -> S S
+S -> HEAD BODY
 S -> HEAD
 S -> BODY
 HEAD -> IMPORT_STMT
-BODY -> IF_STMT
-IMPORT_STMT -> IMPORT ID TK
-IF_STMT -> IF KBKI KBKA KKKI KKKA
+HEAD -> EXPORT_STMT
+HEAD -> EXPORT_DEFAULT_STMT
+HEAD -> HEAD HEAD
+IMPORT_STMT -> IMPORT VARIOUS_VARIABLE FROM STRING TK
+IMPORT_STMT -> IMPORT HEAD_OBJECT FROM STRING TK
+IMPORT_STMT -> IMPORT MUL AS ID FROM STRING TK
+IMPORT_STMT -> IMPORT ID FROM STRING TK
+IMPORT_STMT -> IMPORT STRING TK
+EXPORT_STMT -> EXPORT TYPE_STMT TK
+EXPORT_STMT -> EXPORT FUNCTION MUL FUNCTION_CALL TK
+EXPORT_STMT -> EXPORT FUNCTION FUNCTION_CALL TK
+EXPORT_STMT -> EXPORT HEAD_OBJECT TK
+EXPORT_STMT -> EXPORT MUL FROM STRING TK
+EXPORT_STMT -> EXPORT MUL AS ID FROM STRING TK
+EXPORT_STMT -> EXPORT HEAD_OBJECT FROM STRING TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT ID TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT FUNCTION FUNCTION_CALL TK
+EXPORT_DEFAULT_STMT -> EXPORT DEFAULT FUNCTION MUL FUNCTION_CALL TK
+BODY -> TYPE_STMT TK
+BODY -> TITIK_STMT TK
+BODY -> BODY BODY
+TITIK_STMT -> ID TITIK FUNCTION_CALL
+TITIK_STMT -> ID TITIK ASSIGNMENT
+TITIK_STMT -> ID TITIK ARRAY_CALL
+ARRAY_CALL -> ID KSKI NUMBER KSKA
+FUNCTION -> function
+FUNCTION_CALL -> ID KBKI KBKA
+FUNCTION_CALL -> ID KBKI FUNCTION_PARAM KBKA
+FUNCTION_PARAM -> VARIOUS_VARIABLE_FUNCTION
+VARIOUS_VARIABLE_FUNCTION -> ID
+VARIOUS_VARIABLE_FUNCTION -> STRING
+VARIOUS_VARIABLE_FUNCTION -> VARIOUS_VARIABLE_FUNCTION KM VARIOUS_VARIABLE_FUNCTION
+TYPE_STMT -> LET VARIOUS_VARIABLE_BODY
+TYPE_STMT -> VAR VARIOUS_VARIABLE_BODY
+TYPE_STMT -> CONST VARIOUS_VARIABLE_BODY
+TYPE_STMT -> LET ASSIGNMENT
+TYPE_STMT -> VAR ASSIGNMENT
+TYPE_STMT -> CONST ASSIGNMENT
+BODY_OBJECT -> KKKI VARIOUS_VARIABLE_BODY KKKA
+BODY_ARRAY -> KSKI VARIOUS_VARIABLE_BODY KSKA
+VARIOUS_VARIABLE_BODY -> VALUE
+VARIOUS_VARIABLE_BODY -> VARIOUS_VARIABLE_BODY KM VARIOUS_VARIABLE_BODY
+VALUE -> ID
+VALUE -> ASSIGNMENT
+ASSIGNMENT -> ID IS NUMBER
+ASSIGNMENT -> ID IS STRING
+ASSIGNMENT -> ID IS BOOL
+ASSIGNMENT -> ID TD ID
+ASSIGNMENT -> BODY_OBJECT IS ID
+ASSIGNMENT -> BODY_ARRAY IS ID
+HEAD_OBJECT -> KKKI VARIOUS_VARIABLE KKKA
+VARIOUS_VARIABLE -> HEAD_VALUE
+VARIOUS_VARIABLE -> VARIOUS_VARIABLE KM VARIOUS_VARIABLE
+HEAD_VALUE -> ID
+HEAD_VALUE -> DEFAULT
+HEAD_VALUE -> ID AS ID
+HEAD_VALUE -> DEFAULT AS ID
+HEAD_VALUE -> STRING AS ID
+HEAD_VALUE -> ID AS STRING
+HEAD_VALUE -> ID AS DEFAULT
+HEAD_VALUE -> HEAD_OBJECT
+HEAD_VALUE -> MUL AS ID
+DEFAULT -> default
+EXPORT -> export
 IMPORT -> import
-ID -> id
-TK -> tk
-KBKA -> kbka
+BODY -> IF_STMT
+BODY -> BODY BODY
+IF_STMT -> IF KBKI KBKA KKKI KKKA
+IF -> if
 KBKI -> kbki
+KBKA -> kbka
 KKKA -> kkka
 KKKI -> kkki
-IF -> if
+MUL -> mul
+FROM -> from
+STRING -> string
+AS -> as
+ID -> id
+TK -> tk
+KM -> km
+LET -> let
+VAR -> var
+CONST -> const
+BOOL -> TRUE
+BOOL -> FALSE
+TRUE -> true
+FALSE -> false
+NUMBER -> number
+IS -> is
+TD -> td
+KSKI -> kski
+KSKA -> kska
+TITIK -> titik
+
+import "CFG.py";
+import * as name from "CYK.py";
+import CFG from "test.txt";
+import {CFG} from "CFG.py";
+import {CFG, CNF, CYK, Parse} from "CFG.py";
+import { export1 as alias1 } from "module-name";
+import { export1 as alias1, export2 as alias2 } from "module-name";
+import { export1 as alias1, export2 as alias2, export3 } from "module-name";
+import { default as alias } from "module-name";
+import { "string name" as alias } from "module-name";
+import defaultExport, { export1, export2 } from "module-name";
+import defaultExport, * as name from "module-name";
+export let name1, name2;
+export let name;
+export var name1, name2;
+export const name1, name2;
+export const name1 = 1, name2 = 2;
+export let name1 = 1, name2 = 2;
+export var name1 = 1, name2 = 2;
+export function functionName();
+export function* generatorFunctionName();
+export const { name1, name2: bar } = o;
+export const [ name1, name2 ] = array;
+export { name1, nameN };
+export { variable1 as name1, variable2 as name2, nameN as default };
+export { variable1 as "string name" };
+export default expression;
+export default function functionName();
+export default function* generatorFunctionName();
+export * from "module-name";
+export * as name1 from "module-name";
+export { name1, nameN } from "module-name";
+export { import1 as name1, import2 as name2, nameN, default } from "module-name";
+if(){}
