@@ -22,8 +22,8 @@ def checkVar(var):
 def checkExpr(token):
     tokens = token
     type1 = {
-        'front': ['string', 'number', 'id'],
-        'back': ['string', 'number', 'id'],
+        'front': ['string', 'number', 'id', 'true', 'false'],
+        'back': ['string', 'number', 'id', 'true', 'false'],
         'ops': [
             'isstricteq',
             'notstricteq',
@@ -52,8 +52,8 @@ def checkExpr(token):
     }
 
     type3 = {
-        'front': ['id'],
-        'back': ['id'],
+        'front': ['string', 'number', 'id', 'true', 'false'],
+        'back': ['string', 'number', 'id', 'true', 'false'],
         'ops': [
             'and',
             'or'
