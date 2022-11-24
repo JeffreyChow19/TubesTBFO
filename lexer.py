@@ -1,5 +1,6 @@
 import re
 import FA
+import sys
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
@@ -15,9 +16,7 @@ tokenCollection = [
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
-    (r'\bbool\b',                   "true"),
-    (r'\bbool\b',                   "false"),
-
+    
     # SYNTAX
     (r'\bfunction\b',           "function"),
     (r'\breturn\b',             "return"),
@@ -106,7 +105,6 @@ tokenCollection = [
     (r'[\+\-]?[0-9]+',              "number"),
 ]
 
-
 def lexer(text, tokenCollection):
     currentPos = 1  # position in current line
     currentLine = 1  # current line
@@ -151,7 +149,6 @@ def lexer(text, tokenCollection):
     foundErrorLine = False
     currentLineStr = ""
     if (endLoop):
-
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
                 counterNewLine += 1
@@ -162,12 +159,32 @@ def lexer(text, tokenCollection):
                     else:
                         foundErrorLine = True
                         currentLineStr += text[i]
-        print(
-            f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
+        print(f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
-        print(usedTokens)
-    return usedTokens
+        if (FA.checkExpr(usedTokens) == -1):
+            print(usedTokens)
+            return usedTokens
+        else:
+            currentNewline = 0
+            errorIndex = FA.checkExpr(usedTokens)
+            newlineCounter = 0
+            for i in range(errorIndex):
+                if (usedTokens[i] == 'newline'):
+                    newlineCounter += 1
+            
+            i = 0
+            while (currentNewline < newlineCounter):
+                if (text[i] == '\n'):
+                    currentNewline += 1
+                i += 1
 
+            while (text[i] != '\n'):
+                currentLineStr += text[i]
+                i += 1
+            currentNewline += 1
+            print(f"\nInvalid Expression!\nLine {currentNewline} : (\"{currentLineStr}\")")
+            sys.exit(1)
+            
 
 def parseToToken(path):
     file = open(path)
