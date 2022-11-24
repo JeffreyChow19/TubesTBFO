@@ -22,7 +22,7 @@ def checkVar(var):
 def checkExpr(token):
     tokens = token
     type1 = {
-        'front': ['string', 'number', 'id'],
+        'front': ['string', 'number', 'id', "kski","kbka", "kska"],
         'back': ['string', 'number', 'id'],
         'ops': [
             'sum',
@@ -34,7 +34,7 @@ def checkExpr(token):
     }
 
     type2 = {
-        'front': ['id'],
+        'front': ['id', "kbka", "kska"],
         'back': ['string', 'number', 'id'],
         'ops': [
             'leq',
@@ -47,7 +47,7 @@ def checkExpr(token):
     }
 
     type3 = {
-        'front': ['string', 'number', 'id', 'true', 'false'],
+        'front': ['string', 'number', 'id', 'true', 'false', "kbka", "kska"],
         'back': ['string', 'number', 'id', 'true', 'false'],
         'ops': [
             'and',
@@ -56,7 +56,7 @@ def checkExpr(token):
     }
 
     type4 = {
-        'front': ['id', 'number'],
+        'front': ['id', 'number', "kbka", "kska"],
         'back': ['id', 'number'],
         'ops': [
             'pow',
@@ -67,7 +67,7 @@ def checkExpr(token):
     }
 
     type5 = {
-        'front': ['id'],
+        'front': ['id', "kbka", "kska"],
         'back': ['id'],
         'ops': [
             'inc',
@@ -76,7 +76,7 @@ def checkExpr(token):
     }
 
     type6 = {
-        'front': ['id'],
+        'front': [''],
         'back': ['id'],
         'ops': [
             'notbit',
@@ -85,7 +85,7 @@ def checkExpr(token):
     }
 
     type7 = {
-        'front': ['id'],
+        'front': ['id', "kbka", "kska"],
         'back': ['id', 'string', 'true', 'false', 'number'],
         'ops': [
             'is',
@@ -93,7 +93,7 @@ def checkExpr(token):
     }
 
     type8 = {
-        'front': ['id', 'string', 'true', 'false', 'number'],
+        'front': ['id', 'string', 'true', 'false', 'number', 'kbka', 'kska'],
         'back': ['id', 'string', 'true', 'false', 'number'],
         'ops': [
             'isstricteq',

@@ -165,6 +165,7 @@ def lexer(text, tokenCollection):
             print(usedTokens)
             return usedTokens
         else:
+            print(usedTokens)
             currentNewline = 0
             errorIndex = FA.checkExpr(usedTokens)
             newlineCounter = 0
@@ -195,8 +196,5 @@ def parseToToken(path):
     tokenInText = []
     for token in usedTokens:
         tokenInText.append(token)
-
-    return tokenInText
-
-
-parseToToken('test/TC1.txt')
+    resultToken = list(filter(lambda x: x != 'newline', tokenInText))
+    return resultToken
