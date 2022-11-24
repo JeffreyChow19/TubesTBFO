@@ -11,7 +11,7 @@ tokenCollection = [
 
     # DATA TYPES
     (r'\"[^\"\n]*\"',               "string"),
-    (r'\'[^\"\n]*\'',               "string"),
+    (r'\'[^\'\n]*\'',               "string"),
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
@@ -184,4 +184,4 @@ def parseToToken(path):
     return tokenInText
 
 
-parseToToken('test/javascript_test.js')
+parseToToken('test/TC1.txt')
