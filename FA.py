@@ -22,13 +22,9 @@ def checkVar(var):
 def checkExpr(token):
     tokens = token
     type1 = {
-        'front': ['string', 'number', 'id', 'true', 'false'],
-        'back': ['string', 'number', 'id', 'true', 'false'],
+        'front': ['string', 'number', 'id'],
+        'back': ['string', 'number', 'id'],
         'ops': [
-            'isstricteq',
-            'notstricteq',
-            'iseq',
-            'isneq',
             'sum',
             'sub',
             'mul',
@@ -47,7 +43,6 @@ def checkExpr(token):
             'geq',
             'peq',
             'meq',
-            'is'
         ]
     }
 
@@ -86,6 +81,25 @@ def checkExpr(token):
         'ops': [
             'notbit',
             'notb'
+        ]
+    }
+
+    type7 = {
+        'front': ['id'],
+        'back': ['id', 'string', 'true', 'false', 'number'],
+        'ops': [
+            'is',
+        ]
+    }
+
+    type8 = {
+        'front': ['id', 'string', 'true', 'false', 'number'],
+        'back': ['id', 'string', 'true', 'false', 'number'],
+        'ops': [
+            'isstricteq',
+            'notstricteq',
+            'iseq',
+            'isneq',
         ]
     }
 
@@ -132,6 +146,20 @@ def checkExpr(token):
         if tokens[i] in type6['ops']:
             try:
                 if tokens[i + 1] not in type6['back']:
+                    return i
+            except:
+                return i
+
+        if tokens[i] in type7['ops']:
+            try:
+                if tokens[i - 1] not in type7['front'] or tokens[i + 1] not in type7['back']:
+                    return i
+            except:
+                return i
+
+        if tokens[i] in type8['ops']:
+            try:
+                if tokens[i - 1] not in type8['front'] or tokens[i + 1] not in type8['back']:
                     return i
             except:
                 return i
