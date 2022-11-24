@@ -16,3 +16,15 @@ app.use(VueAxios, axios);
 app.use(router);
 
 app.mount("#app");
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes: [
+    {
+      path: "/",
+      name: "home",
+      component: HomeView,
+      children: [
+        { path: '', component: HomeView, alias: ['/company'] },
+      ],
+    },]})
