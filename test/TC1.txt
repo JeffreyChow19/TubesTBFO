@@ -1,11 +1,3 @@
-try{
-    throw "myExecution";
-}catch(e){
-    if(i instanceof a){
-        return 0;
-    }else if(i instanceof b){
-
-    }else{
-        logMyError(e);
-    }
-}
+str = "$$$$##!!!!_----_S_S__Ssssss$#$$$$"
+str2 = "___$ssssSSssSA_-Ss-s-s-s#s3S!!sSS!Ss!!s!ss!S"
+// str = "##__##"

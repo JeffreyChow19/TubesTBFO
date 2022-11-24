@@ -10,8 +10,8 @@ tokenCollection = [
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
     # DATA TYPES
-    (r'\"[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*\"',             "string"),
-    (r'\'[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*[\w]*[\\]*[\W]*[\\]*',             "string"),
+    (r'\"[\\]*[\_\w\_\W]*[\\]*[\_\W\_\w]*[\\]*\"',             "string"),
+    (r'\'[\\]*[\_\w\_\W]*[\\]*[\_\W\_\w]*[\\]*\'',             "string"),
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
@@ -47,7 +47,7 @@ tokenCollection = [
     (r'\btypeof\b',             "typeof"),
     (r'\bin\b',                 "in"),
     (r'\binstanceof\b',         "instanceof"),
-    (r'\bInfinity\b',           "Infinity"),
+    (r'\bInfinity\b',           "infinity"),
     (r'\bin\b',                 "in"),
     (r'\bof\b',                 "of"),
     (r'\bas\b',                 "as"),
@@ -83,6 +83,8 @@ tokenCollection = [
     (r'\*\*',             "pow"),
     (r'\+\=',             "peq"),  # plus equal
     (r'\-\=',             "meq"),  # minus equal
+    (r'\*\=',             "muleq"), # multiply equal
+    (r'\/\=',             "muleq"), # div equal
     (r'\+\+',             "inc"),  # increment
     (r'\-\-',             "dec"),  # decrement
     (r'\^',               "xor"),
@@ -152,6 +154,7 @@ def lexer(text, tokenCollection):
     foundErrorLine = False
     currentLineStr = ""
     if (endLoop):
+        print(text[pointerText])
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
                 counterNewLine += 1
