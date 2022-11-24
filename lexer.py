@@ -16,7 +16,7 @@ tokenCollection = [
     (r'\bvar\b',                    "var"),
     (r'\blet\b',                    "let"),
     (r'\bconst\b',                  "const"),
-    
+
     # SYNTAX
     (r'\bfunction\b',           "function"),
     (r'\breturn\b',             "return"),
@@ -161,7 +161,7 @@ def lexer(text, tokenCollection):
                         currentLineStr += text[i]
         print(f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
     else:
-        if (FA.checkExpr(usedTokens) == -1):
+        if (FA.checkExpr(usedTokens) == True):
             print(usedTokens)
             return usedTokens
         else:
