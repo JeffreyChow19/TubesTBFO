@@ -4,3 +4,4 @@ while (condition) {
   i++;
   break;
 }
+
