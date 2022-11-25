@@ -15,7 +15,15 @@ They scan your scripts for common issues and errors, and give you back a report 
 In addition to actual bugs and errors, they also check for subjective, stylistic preferences as well. Did you include a space between the function name and parentheses? Did you use single or double quotes around strings? Things like that.
 
 ## Tampilan Program
+### Compile Success 
+![Success View](./screenshot/success.png)
+<br />
+
+### Syntax Error
 ![Syntax Error View](./screenshot/syntaxErr.png)
+<br />
+
+### Expression Error
 ![Expression Error View](./screenshot/exprErr.png)
 
 ## How To Run
