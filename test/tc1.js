@@ -1,6 +1,10 @@
-let i = (-1) + 2;
+
 while (condition) {
   console.log(i);
   i++;
-  break;
+  if (i == 1) {
+    break;
+  } else {
+    continue;
+  }
 }

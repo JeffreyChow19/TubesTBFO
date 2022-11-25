@@ -1,9 +1,5 @@
-const temp = "jimly";
-switch (temp) {
-  case "jimly":
-    console.log("hello");
-  case "firdaus":
-    console.log("world");
-  default:
-    break;
+for (let i = 0; i < 5; i++) {
+  for (let j = 0; j < i; j++) {
+    console.log(i + j);
+  }
 }

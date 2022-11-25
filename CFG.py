@@ -16,11 +16,6 @@ class Grammar:
         else:
             self.CFG[key].append(value)
 
-    def printCFG(self):
-        for x in self.CFG:
-            print(f'{x} -> {self.CFG[x]}')
-        print()
-
     def newVar(self):
         newvar = 'VAR' + str(self.index)
         self.index += 1

@@ -17,7 +17,7 @@ const num = "Enter a positive number: ";
 // calling factorial() if num is positive
 if (num >= 0) {
   const result = factorial(num);
-  console.log("The factorial of ${num} is ${result}");
+  console.log("The factorial of ${num} is" + result);
 } else {
   console.log("Enter a positive number.");
 }
