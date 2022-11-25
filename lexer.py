@@ -155,7 +155,6 @@ def lexer(text, tokenCollection):
     foundErrorLine = False
     currentLineStr = ""
     indexError = 0
-    print(usedTokens)
     if (endLoop):
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
