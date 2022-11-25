@@ -1,6 +1,12 @@
 import re
 import FA
 import sys
+from colorama import Fore, Back, Style
+
+# Style
+class Format:
+    end = '\033[0m'
+    underline = '\033[4m'
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
@@ -149,6 +155,7 @@ def lexer(text, tokenCollection):
     counterNewLine = 1
     foundErrorLine = False
     currentLineStr = ""
+    indexError = 0
     if (endLoop):
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
@@ -158,9 +165,28 @@ def lexer(text, tokenCollection):
                     if (text[i] == '\n' or i == len(text)):
                         break
                     else:
+                        if text[i] == text[pointerText]:
+                            indexError = i
                         foundErrorLine = True
                         currentLineStr += text[i]
-        print(f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
+        print()
+        print(Fore.RED, end="")
+        print("|------------------|")
+        print("| Syntax Error !!! |")
+        print("|------------------|")
+        print(Style.RESET_ALL, end="")
+        print("\n>>> Line " + str(currentLine) + " : " +  "\"", end="")
+        for j in range(len(currentLineStr)):
+            if j == indexError:
+                print(Fore.RED, end="")
+                print(Format.underline + "" + currentLineStr[j] + Format.end, end="")
+                print(Style.RESET_ALL, end="")
+            else:
+                print(Fore.GREEN, end="")
+                print(currentLineStr[j], end="")
+                print(Style.RESET_ALL, end="")
+        print("\".\n")
+        sys.exit(1)
     else:
         if (FA.checkExpr(usedTokens) == True):
             return usedTokens
@@ -182,8 +208,16 @@ def lexer(text, tokenCollection):
                 currentLineStr += text[i]
                 i += 1
             currentNewline += 1
-            print(
-                f"\nInvalid Expression!\nLine {currentNewline} : (\"{currentLineStr}\")")
+            print()
+            print(Fore.RED, end="")
+            print("|------------------------|")
+            print("| Invalid Expression !!! |")
+            print("|------------------------|")
+            print(Style.RESET_ALL, end="")
+            print("\n>>> Line " + str(currentNewline) + " : ", end="")
+            print(Fore.RED, end="")
+            print(Format.underline + "\"" + currentLineStr + "\"." + Format.end, end="")
+            print(Style.RESET_ALL)
             sys.exit(1)
 
 
