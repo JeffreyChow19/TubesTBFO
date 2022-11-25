@@ -1,3 +1,4 @@
+import React from "React";
 // program to check if a number is prime or not
 
 // take input from the user
