@@ -1,3 +1,11 @@
+let a = 1;
+let b;
+let c = a ? b : false;
 
-(X==a) ? x = b : b
-let id= 0;
+switch (x){
+    case x: 
+        if(x){
+
+        }
+        break;
+}
