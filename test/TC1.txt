@@ -1,9 +1,0 @@
-let a = 1;
-let b;
-let c = a ? b : false;
-
-while(x){
-    console.log(a);
-}else{
-    
-}
