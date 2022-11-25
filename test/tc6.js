@@ -1,5 +1,14 @@
-arr = ["a", "b", "c"];
-delete arr[0];
+function abjad() {
+  let a = b + c;
+  console.log(a);
+  return a;
+}
 
-arr = ["e", "f", "g"];
-delete arr[2];
+function noReturn(c) {
+  a = 3 + c;
+}
+
+noReturn(5);
+
+export default abjad;
+
