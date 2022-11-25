@@ -67,7 +67,6 @@ tokenCollection = [
     (r'\;',              "tk"),  # titik koma
     (r'\,',              "km"),  # koma
 
-
     # Operator (boolean)
     (r'\===',            "isstricteq"),
     (r'\!==',            "notstricteq"),
@@ -105,7 +104,7 @@ tokenCollection = [
     # Var Name, Class method, Obj Props
     # (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
     (r'\.',                                                      "titik"),
-    (r'[0-9]*[a-zA-Z_][a-zA-Z0-9_]*',                            "id"),
+    (r'[0-9]*[\$]*[a-zA-Z_][a-zA-Z0-9_]*',                            "id"),
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
     (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
     (r'[\+\-]?[0-9]+',              "number"),
@@ -156,6 +155,7 @@ def lexer(text, tokenCollection):
     foundErrorLine = False
     currentLineStr = ""
     indexError = 0
+    print(usedTokens)
     if (endLoop):
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):

@@ -6,7 +6,7 @@ def checkVar(var):
 
     accepted_first = abjad
     accepted_first.append(ord('_'))
-
+    accepted_first.append(ord('$'))
     accepted = accepted_first + angka
 
     if (ord(var[0]) not in accepted_first):
