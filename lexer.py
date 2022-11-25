@@ -1,7 +1,7 @@
 import re
 import FA
 import sys
-from colorama import Fore, Back, Style
+from colorama import Fore, Style
 
 # Style
 class Format:
@@ -12,7 +12,7 @@ tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
 
     # IGNORE TYPES
-    (r'[ \t]+',                                 None),  # ignore spaces at left
+    (r'[ \t]+',                                 None), 
     (r'//[^\n]*',                               None),
     (r'/\*[^\n]+[ \t]*[//]*[\w\W]*[$\n]*\*/',   None),
 
@@ -55,6 +55,7 @@ tokenCollection = [
     (r'\bin\b',                 "in"),
     (r'\bof\b',                 "of"),
     (r'\bas\b',                 "as"),
+
     # ESCAPE SEQUENCE
     (r'\n',              "newline"),
     (r'\(',              "kbki"),  # kurung biasa kiri
@@ -102,9 +103,8 @@ tokenCollection = [
     (r'~',                "notbit"),
 
     # Var Name, Class method, Obj Props
-    # (r'[a-zA-Z_][a-zA-Z0-9_]*[\.][a-zA-Z_][a-zA-Z0-9_]*',        "kartitik"),
     (r'\.',                                                      "titik"),
-    (r'[0-9]*[\$]*[a-zA-Z_][a-zA-Z0-9_]*',                            "id"),
+    (r'[0-9]*[\$]*[a-zA-Z_][a-zA-Z0-9_]*',                       "id"),
     (r'[\+\-]?[0-9]+\.[0-9]+',      "number"),
     (r'[\+\-]?[0-9]+[e-]?[0-9]*',   "number"),
     (r'[\+\-]?[0-9]+',              "number"),
@@ -143,7 +143,7 @@ def lexer(text, tokenCollection):
                         usedTokens.append(currentTokens)
                 break
 
-        if not match:  # throws error if not match
+        if not match:  
             endLoop = True
             break
         else:  # set current text pointer to end of current match position
