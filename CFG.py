@@ -36,7 +36,6 @@ class Grammar:
         if startInRHS:
             self.createProduction('S0', [startSymbol])
 
-        # self.printCFG()
         # Eliminate unit production
         recheck = True
         while recheck:
@@ -46,11 +45,6 @@ class Grammar:
                     if (len(unit) == 1):
                         if not unit[0].islower():
                             self.CFG[rule].remove(unit)
-
-                            # for x in self.CFG[rule]:
-                            #     print(x)
-
-                            # print()
                             for item in self.CFG[unit[0]]:
                                 # print(unit)
                                 # print(item)
