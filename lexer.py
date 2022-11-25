@@ -1,6 +1,12 @@
 import re
 import FA
 import sys
+from colorama import Fore, Back, Style
+
+# Style
+class Format:
+    end = '\033[0m'
+    underline = '\033[4m'
 
 tokenCollection = [
     # Tuples for defining JS syntax to GRAMMAR
@@ -105,6 +111,7 @@ tokenCollection = [
     (r'[\+\-]?[0-9]+',              "number"),
 ]
 
+
 def lexer(text, tokenCollection):
     currentPos = 1  # position in current line
     currentLine = 1  # current line
@@ -148,6 +155,7 @@ def lexer(text, tokenCollection):
     counterNewLine = 1
     foundErrorLine = False
     currentLineStr = ""
+    indexError = 0
     if (endLoop):
         for i in range(len(text)):
             if (text[i] == '\n' and not foundErrorLine):
@@ -157,12 +165,30 @@ def lexer(text, tokenCollection):
                     if (text[i] == '\n' or i == len(text)):
                         break
                     else:
+                        if text[i] == text[pointerText]:
+                            indexError = i
                         foundErrorLine = True
                         currentLineStr += text[i]
-        print(f"\nSyntax Error!\nLine {currentLine} : (\"{currentLineStr}\")")
+        print()
+        print(Fore.RED, end="")
+        print("|------------------|")
+        print("| Syntax Error !!! |")
+        print("|------------------|")
+        print(Style.RESET_ALL, end="")
+        print("\n>>> Line " + str(currentLine) + " : " +  "\"", end="")
+        for j in range(len(currentLineStr)):
+            if j == indexError:
+                print(Fore.RED, end="")
+                print(Format.underline + "" + currentLineStr[j] + Format.end, end="")
+                print(Style.RESET_ALL, end="")
+            else:
+                print(Fore.GREEN, end="")
+                print(currentLineStr[j], end="")
+                print(Style.RESET_ALL, end="")
+        print("\".\n")
+        sys.exit(1)
     else:
         if (FA.checkExpr(usedTokens) == True):
-            print(usedTokens)
             return usedTokens
         else:
             currentNewline = 0
@@ -171,7 +197,7 @@ def lexer(text, tokenCollection):
             for i in range(errorIndex):
                 if (usedTokens[i] == 'newline'):
                     newlineCounter += 1
-            
+
             i = 0
             while (currentNewline < newlineCounter):
                 if (text[i] == '\n'):
@@ -182,9 +208,18 @@ def lexer(text, tokenCollection):
                 currentLineStr += text[i]
                 i += 1
             currentNewline += 1
-            print(f"\nInvalid Expression!\nLine {currentNewline} : (\"{currentLineStr}\")")
+            print()
+            print(Fore.RED, end="")
+            print("|------------------------|")
+            print("| Invalid Expression !!! |")
+            print("|------------------------|")
+            print(Style.RESET_ALL, end="")
+            print("\n>>> Line " + str(currentNewline) + " : ", end="")
+            print(Fore.RED, end="")
+            print(Format.underline + "\"" + currentLineStr + "\"." + Format.end, end="")
+            print(Style.RESET_ALL)
             sys.exit(1)
-            
+
 
 def parseToToken(path):
     file = open(path)
@@ -195,8 +230,5 @@ def parseToToken(path):
     tokenInText = []
     for token in usedTokens:
         tokenInText.append(token)
-
-    return tokenInText
-
-
-parseToToken('test/TC1.txt')
+    resultToken = list(filter(lambda x: x != 'newline', tokenInText))
+    return resultToken
