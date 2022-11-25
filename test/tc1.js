@@ -1,4 +1,3 @@
-
 while (condition) {
   console.log(i);
   i++;

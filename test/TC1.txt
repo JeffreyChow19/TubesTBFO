@@ -1,5 +1,3 @@
 
-let a = true
-if (sum > 25 && sum < 28) {
-    return x++
-}
+(X==a) ? x = b : b
+let id= 0;
