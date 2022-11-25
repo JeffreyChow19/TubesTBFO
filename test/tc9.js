@@ -15,6 +15,12 @@ else if (number > 1) {
   for (let i = 2; i < number; i++) {
     if (number % i == 0) {
       isPrime = false;
+      a = b / 2;
+      /* This is multiline comments
+      test
+      test
+      enter
+      */
       break;
     }
   }
