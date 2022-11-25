@@ -22,53 +22,31 @@ def checkVar(var):
 def checkExpr(token):
     tokens = token
     type1 = {
-        'front': ['string', 'number', 'id', "kski","kbka", "kska"],
-        'back': ['string', 'number', 'id'],
+        'front': ['number', 'id', "kbka", "kska"],
+        'back': ['number', 'id', "kbki", "kski"],
         'ops': [
-            'sum',
-            'sub',
             'mul',
             'div',
-            'mod'
+            'mod',
+            'pow',
+            'xor'
         ]
     }
 
     type2 = {
-        'front': ['id', "kbka", "kska"],
-        'back': ['string', 'number', 'id'],
+        'front': ['id', "kbka", "kska", 'number'],
+        'back': ['number', 'id', 'kbki'],
         'ops': [
             'leq',
             'l',
             'g',
             'geq',
-            'peq',
-            'meq',
-        ]
-    }
-
-    type3 = {
-        'front': ['string', 'number', 'id', 'true', 'false', "kbka", "kska"],
-        'back': ['string', 'number', 'id', 'true', 'false'],
-        'ops': [
-            'and',
-            'or'
-        ]
-    }
-
-    type4 = {
-        'front': ['id', 'number', "kbka", "kska"],
-        'back': ['id', 'number'],
-        'ops': [
-            'pow',
-            'xor',
-            'andb',
-            'orb'
         ]
     }
 
     type5 = {
         'front': ['id', "kbka", "kska"],
-        'back': ['id'],
+        'back': ['id','number'],
         'ops': [
             'inc',
             'dec'
@@ -85,8 +63,8 @@ def checkExpr(token):
     }
 
     type7 = {
-        'front': ['id', "kbka", "kska"],
-        'back': ['id', 'string', 'true', 'false', 'number'],
+        'front': ['id', "kbka", "kska", 'kkka'],
+        'back': ['id', 'string', 'true', 'false', 'number', 'kski', 'kbki', 'kkki', 'null'],
         'ops': [
             'is',
         ]
@@ -94,12 +72,42 @@ def checkExpr(token):
 
     type8 = {
         'front': ['id', 'string', 'true', 'false', 'number', 'kbka', 'kska'],
-        'back': ['id', 'string', 'true', 'false', 'number'],
+        'back': ['id', 'string', 'true', 'false', 'number', 'null', 'kbki'],
         'ops': [
             'isstricteq',
             'notstricteq',
             'iseq',
             'isneq',
+            'and',
+            'or',
+            'andb',
+            'orb',
+        ]
+    }
+
+    type9 = {
+        'front' : ['kska', 'kbka', 'id'],
+        'back' : ['id', 'number', 'kbki', 'sub', 'string', 'kski'],
+        'ops' : [
+            'peq',
+            'meq',
+            'muleq',
+            'diveq'
+        ]
+    }
+    type10 = {
+        'front': ['string', 'number', 'id', "kbka", "kska"],
+        'back': ['string', 'number', 'id', 'kbki'],
+        'ops': [
+            'sum',
+        ]
+    }
+
+    type11 = {
+        'front': ['number', 'id', "kbka", "kska", 'kbki', 'kski'],
+        'back': ['number', 'id', 'kbki'],
+        'ops': [
+            'sub',
         ]
     }
 
@@ -114,20 +122,6 @@ def checkExpr(token):
         if tokens[i] in type2['ops']:
             try:
                 if tokens[i - 1] not in type2['front'] or tokens[i + 1] not in type2['back']:
-                    return i
-            except:
-                return i
-
-        if tokens[i] in type3['ops']:
-            try:
-                if tokens[i - 1] not in type3['front'] or tokens[i + 1] not in type3['back']:
-                    return i
-            except:
-                return i
-
-        if tokens[i] in type4['ops']:
-            try:
-                if tokens[i - 1] not in type4['front'] or tokens[i + 1] not in type4['back']:
                     return i
             except:
                 return i
@@ -160,6 +154,27 @@ def checkExpr(token):
         if tokens[i] in type8['ops']:
             try:
                 if tokens[i - 1] not in type8['front'] or tokens[i + 1] not in type8['back']:
+                    return i
+            except:
+                return i
+
+        if tokens[i] in type9['ops']:
+            try:
+                if tokens[i - 1] not in type9['front'] or tokens[i + 1] not in type9['back']:
+                    return i
+            except:
+                return i
+
+        if tokens[i] in type10['ops']:
+            try:
+                if tokens[i - 1] not in type10['front'] or tokens[i + 1] not in type10['back']:
+                    return i
+            except:
+                return i
+
+        if tokens[i] in type11['ops']:
+            try:
+                if tokens[i - 1] not in type11['front'] or tokens[i + 1] not in type11['back']:
                     return i
             except:
                 return i

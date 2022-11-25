@@ -186,6 +186,7 @@ def lexer(text, tokenCollection):
                 print(currentLineStr[j], end="")
                 print(Style.RESET_ALL, end="")
         print("\".\n")
+        print()
         sys.exit(1)
     else:
         if (FA.checkExpr(usedTokens) == True):
@@ -218,6 +219,7 @@ def lexer(text, tokenCollection):
             print(Fore.RED, end="")
             print(Format.underline + "\"" + currentLineStr + "\"." + Format.end, end="")
             print(Style.RESET_ALL)
+            print()
             sys.exit(1)
 
 
