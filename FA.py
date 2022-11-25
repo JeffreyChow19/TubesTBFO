@@ -29,7 +29,7 @@ def checkExpr(token):
             'div',
             'mod',
             'pow',
-            'xor'
+            'xor',
         ]
     }
 
@@ -49,7 +49,7 @@ def checkExpr(token):
         'back': ['id','number'],
         'ops': [
             'inc',
-            'dec'
+            'dec',
         ]
     }
 
@@ -58,7 +58,7 @@ def checkExpr(token):
         'back': ['id'],
         'ops': [
             'notbit',
-            'notb'
+            'notb',
         ]
     }
 
