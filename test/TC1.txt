@@ -2,10 +2,6 @@ let a = 1;
 let b;
 let c = a ? b : false;
 
-switch (x){
-    case x: 
-        if(x){
-
-        }
-        break;
+for (let i= 0; i < 0; ++i){
+    console.log();
 }
